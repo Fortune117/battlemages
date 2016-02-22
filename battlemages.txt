@@ -1,0 +1,8 @@
+"battlemages"
+{
+	"base"		"base"
+	"title"		"Battle Mages"
+	"maps"		"^gm_|^bm_"
+	"menusystem"	"1"
+	"settings"	""
+}
