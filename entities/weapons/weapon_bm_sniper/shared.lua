@@ -8,7 +8,7 @@ if CLIENT then
    SWEP.ViewModelFlip   = true
    SWEP.CSMuzzleFlashes = true
 
-   SWEP.VElements = 
+   SWEP.VElements =
    {
       ["body2"] = { type = "Model", model = "models/props_combine/combine_booth_short01a.mdl", bone = "v_weapon.m4_Parent", rel = "", pos = Vector(0.2, -4.676, -0.311), angle = Angle(162.468, -4, 180), size = Vector(0.019, 0.019, 0.019), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
       ["body4"] = { type = "Model", model = "models/props_combine/headcrabcannister01a.mdl", bone = "v_weapon.m4_Parent", rel = "", pos = Vector(0.3, -4.901, -10.91), angle = Angle(-90, -15, 0), size = Vector(0.1, 0.059, 0.046), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
@@ -17,35 +17,35 @@ if CLIENT then
    }
 
     SWEP.PrintName = "Lazarus Rifle"
-    local scopeTexture = Material( "bm/hud/crosshairs/laz_scope.png", "noclamp smooth" )
     function SWEP:drawScopeOverlay( x, y, w, h )
 
-        surface.SetDrawColor( Color( 255, 255, 255, 255 ) )
-        surface.SetMaterial( scopeTexture )
-        surface.DrawTexturedRect( 0, 0, w, h )
+        surface.SetDrawColor( Color( 20, 20, 230, 12 ) )
+        surface.DrawRect( 0, 0, w, h )
+
+        local p = self.scopeT
+        draw.Arc( w/2, h/2, (w/4), 20, 45 - 90*(1-p), -90 + 90*(1-p), 2, Color( 255, 255, 255, 255 ) )
 
 
-    end 
+    end
 
-   local targW    = 45
-   local targH    = 120
-   local targColor   = Color( 255, 25, 25, 255 )
-   function SWEP:DrawHUD()
+    SWEP.crossGapMax     = 2
+    function SWEP:DrawHUD()
 
-      if self:GetSights() then 
+        if self:GetSights() then
 
-         local scrw,scrh   = ScrW(),ScrH()
-         
-         self:drawScopeOverlay( 0, 0, scrw, scrh )
+             local scrw,scrh   = ScrW(),ScrH()
 
+             self:drawScopeOverlay( 0, 0, scrw, scrh )
 
-      end 
+        else
+            self.BaseClass.DrawHUD( self )
+        end
 
-   end 
+    end
 
    function SWEP:AdjustMouseSensitivity()
-      return self:GetSights() and 0.5 or 1 
-   end 
+      return self:GetSights() and 0.5 or 1
+   end
 
 end
 
@@ -77,11 +77,15 @@ SWEP.WElements = {
 }
 
 SWEP.Primary.Sound = Sound( "weapons/usp/usp1.wav" )
-SWEP.Primary.DryFireSound = "Weapon_Pistol.Empty" //Empty Clip Sound
+SWEP.Primary.DryFireSound = "Weapon_Pistol.Empty" --Empty Clip Sound
 SWEP.Primary.Recoil         = 1
 SWEP.Primary.Damage         = 90
 SWEP.Primary.NumShots       = 1
 SWEP.Primary.Cone           = 0.002
+SWEP.Primary.ConeMax            = 0.002
+SWEP.Primary.ConeScaleTime      = 0.5
+SWEP.Primary.ConeScaleDownTime  = 1
+SWEP.Primary.ConeDelay          = 0.4
 SWEP.Primary.Delay          = 0.4
 
 SWEP.Primary.ClipSize       = 15
@@ -102,7 +106,7 @@ SWEP.primaryAnim            = ACT_VM_PRIMARYATTACK_SILENCED
 SWEP.reloadAnim             = ACT_VM_RELOAD_SILENCED
 SWEP.deployAnim             = ACT_VM_DRAW_SILENCED
 
-SWEP.reloadTime             = 3
+SWEP.reloadTime             = 2
 
 SWEP.Tracer                 = 1
 SWEP.TracerName             = "AR2Tracer"
@@ -112,37 +116,51 @@ function SWEP:SetupDataTables()
    self:NetworkVar( "Bool", 3, "Sights" )
    self:NetworkVar( "Float", 3, "NextSights" )
    self.BaseClass.SetupDataTables( self )
-end 
+end
 
 function SWEP:Initialize()
-   self.firstDeploy = true 
+   self.firstDeploy = true
    self.BaseClass.Initialize( self )
    self:SetNextSights( CurTime() )
+   self.scopeT = 0
+   self.delayT = 0
 end
 
 function SWEP:CanSecondaryAttack()
    return (CurTime() > self:GetNextSights()) and not self:GetReloading()
-end 
+end
 
 function SWEP:scope( b )
-   if b then 
-      self.Owner:SetFOV( 40, 0 )
-   else 
-      self.Owner:SetFOV( 0, 0)
-   end 
+   if b then
+      self.Owner:SetFOV( 40, 0.1 )
+   else
+      self.Owner:SetFOV( 0, 0.1 )
+   end
    self:SetSights( b )
    self:SetNextSights( CurTime() + 0.15 )
-end 
+end
 
 function SWEP:SecondaryAttack()
-   if SERVER and self:CanSecondaryAttack() then 
+   if SERVER and self:CanSecondaryAttack() then
       self:scope( not self:GetSights() )
-   end 
-end 
- 
+   end
+end
+
 function SWEP:Reload()
-   if self:canReload() then 
+   if self:canReload() then
       self:scope( false )
-   end 
+   end
    self.BaseClass.Reload( self )
-end 
+end
+
+local d = 0.05
+function SWEP:Think()
+    if CLIENT then
+        if self:GetSights() then
+            self.scopeT = Lerp( FrameTime(), self.scopeT, 1 )
+        else
+            self.scopeT = 0
+        end
+    end
+    self.BaseClass.Think( self )
+end

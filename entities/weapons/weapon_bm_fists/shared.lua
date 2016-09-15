@@ -72,7 +72,7 @@ function SWEP:PrimaryAttack( right )
 
 	self:UpdateNextIdle()
 	self:SetNextMeleeAttack( CurTime() + 0.2 )
-	
+
 	self:SetNextPrimaryFire( CurTime() + 0.6 )
 	self:SetNextSecondaryFire( CurTime() + 0.6 )
 
@@ -89,7 +89,7 @@ function SWEP:DealDamage()
 	local anim = self:GetSequenceName(self.Owner:GetViewModel():GetSequence())
 
 	self.Owner:LagCompensation( true )
-	
+
 	local tr = util.TraceLine( {
 		start = self.Owner:GetShootPos(),
 		endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * self.HitDistance,
@@ -97,7 +97,7 @@ function SWEP:DealDamage()
 		mask = MASK_SHOT_HULL
 	} )
 
-	if ( !IsValid( tr.Entity ) ) then 
+	if ( !IsValid( tr.Entity ) ) then
 		tr = util.TraceHull( {
 			start = self.Owner:GetShootPos(),
 			endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * self.HitDistance,
@@ -132,7 +132,7 @@ function SWEP:DealDamage()
 
 	if ( SERVER && IsValid( tr.Entity ) && ( tr.Entity:IsNPC() || tr.Entity:IsPlayer() || tr.Entity:Health() > 0 ) ) then
 		local dmginfo = DamageInfo()
-	
+
 		local attacker = self.Owner
 		if ( !IsValid( attacker ) ) then attacker = self end
 		dmginfo:SetAttacker( attacker )
@@ -183,9 +183,9 @@ function SWEP:Deploy()
 
 	local vm = self.Owner:GetViewModel()
 	vm:SendViewModelMatchingSequence( vm:LookupSequence( "fists_draw" ) )
-	
+
 	self:UpdateNextIdle()
-	
+
 	if ( SERVER ) then
 		self:SetCombo( 0 )
 	end

@@ -2,7 +2,11 @@ include( 'shared.lua' )
 include( 'sh_player.lua' )
 include( 'sh_battlemages.lua' )
 include( 'sh_powers.lua' )
+include( 'sh_buffs.lua' )
 include( 'cl_hud.lua' )
+include( 'cl_draw.lua' )
+include( 'cl_powers.lua' )
+include( 'cl_halooverride.lua' )
 
 surface.CreateFont( "BM_HUDLarge", { font = "Trebuchet18", size = 80, weight = 450, scanlines = true, antialias = true } )
 surface.CreateFont( "BM_HUDLarge2", { font = "Trebuchet18", size = 60, weight = 450, scanlines = true, antialias = true } )
@@ -17,32 +21,32 @@ function GM:CalcView( ply, pos, ang, fov, nearZ, farZ )
 
 	view.origin = pos
 	view.angles = ang
-	view.fov = fov 
+	view.fov = fov
 
 
-	local t_Data = ply:getThirdPersonData() 
+	local t_Data = ply:getThirdPersonData()
 
 	local b = t_Data.bool
-	if b then 
+	if b then
 		local dist = t_Data.dist
-		local start = t_Data.startTime  
-		local delay = t_Data.delay 
+		local start = t_Data.startTime
+		local delay = t_Data.delay
 		local drawDist = math.min( dist*( (CurTime()-start)/delay ), dist )
-		ply.drawDist = drawDist 
+		ply.drawDist = drawDist
 		view.origin = pos - (ang:Forward()*drawDist)
 	elseif not b and (ply.drawDist or 0 ) > 0 then
 		local dist = t_Data.dist
-		local start = t_Data.startTime  
-		local delay = t_Data.delay 
+		local start = t_Data.startTime
+		local delay = t_Data.delay
 		local drawDist = math.max( dist*( 1 - (CurTime()-start)/delay ), 0 )
-		ply.drawDist = drawDist 
+		ply.drawDist = drawDist
 		view.origin = pos - (ang:Forward()*drawDist)
-	end 
+	end
 
 	return view
-end 
+end
 
 function GM:ShouldDrawLocalPlayer()
 	local ply = LocalPlayer()
-	return ply:isThirdPerson() or (ply.drawDist or 0) > 0 
-end 
+	return ply:isThirdPerson() or (ply.drawDist or 0) > 0
+end

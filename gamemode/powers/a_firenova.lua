@@ -5,7 +5,7 @@ ACTIVE.name 						= "FireNova"
 ACTIVE.baseCooldown 				= 5
 
 ACTIVE.cooldownType 				= COOLDOWN_ONFINISH
-ACTIVE.delay 						= 2
+ACTIVE.delay 						= 1
 ACTIVE.castType 					= CAST_DELAY
 
 ACTIVE.animation 					= PLAYER_ATTACK1

@@ -1,13 +1,13 @@
 local PLY = FindMetaTable( "Player" )
 function PLY:getClassData()
 	return player_manager.RunClass( self, "getClassData" )
-end 
+end
 
 function PLY:getClass()
 	return player_manager.GetPlayerClass( self )
-end 
+end
 
-if SERVER then 
+if SERVER then
 
 	util.AddNetworkString( "bm_setThirdPerson" )
 	util.AddNetworkString( "bm_healNotify" )
@@ -23,37 +23,37 @@ if SERVER then
 
 	function PLY:setBMClass( class )
 		player_manager.SetPlayerClass( self, class )
-	end 
+	end
 
 	function PLY:heal( n )
 		self:SetHealth( math.min( self:Health() + n, self:GetMaxHealth() ) )
 		net.Start( "bm_healNotify" )
-			net.WriteInt( n, 8 )
-		net.Send( self ) 
-	end 
+			net.WriteInt( n, 16 )
+		net.Send( self )
+	end
 
-end 
+end
 
 function PLY:isThirdPerson()
-	return self:getThirdPersonData().bool or false 
-end 
+	return self:getThirdPersonData().bool or false
+end
 
 function PLY:getThirdPersonDist()
-	return self:getThirdPersonData().dist 
+	return self:getThirdPersonData().dist
 end
 
 function PLY:getThirdPersonDelay()
-	return self:getThirdPersonData().delay 
-end 
+	return self:getThirdPersonData().delay
+end
 
 function PLY:getThirdPersonData()
 	return self.thirdPersonData or {}
-end 
+end
 
-if CLIENT then 
-	net.Receive( "bm_setThirdPerson", function( len ) 
+if CLIENT then
+	net.Receive( "bm_setThirdPerson", function( len )
 		local tbl = net.ReadTable()
 		local ply = LocalPlayer()
-		ply.thirdPersonData = tbl 
+		ply.thirdPersonData = tbl
 	end )
-end 
+end
