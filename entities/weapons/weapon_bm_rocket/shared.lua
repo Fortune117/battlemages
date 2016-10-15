@@ -3,12 +3,12 @@
 AddCSLuaFile()
 
 if CLIENT then
-   SWEP.crossGapMax     = 36
-   SWEP.DrawCrosshair   = false
+   SWEP.crossGapMax     = 40
+   SWEP.DrawCrosshair   = true
    SWEP.ViewModelFOV    = 55
    SWEP.ViewModelFlip   = true
    SWEP.CSMuzzleFlashes = true
-   SWEP.PrintName = "Admin Gun"
+   SWEP.PrintName = "Minge AK"
 end
 
 
@@ -35,9 +35,9 @@ SWEP.Primary.Recoil             = 0.25
 SWEP.Primary.Damage             = 25
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.Cone               = 0.002
-SWEP.Primary.ConeMax            = 0.03
-SWEP.Primary.ConeScaleTime      = 0.5
-SWEP.Primary.ConeScaleDownTime  = 0.3
+SWEP.Primary.ConeMax            = 0.04
+SWEP.Primary.ConeScaleTime      = 0.4
+SWEP.Primary.ConeScaleDownTime  = 0.35
 SWEP.Primary.ConeDelay          = 0.1
 SWEP.Primary.Delay              = 0.07
 

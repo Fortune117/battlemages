@@ -49,11 +49,11 @@ function GM:PlayerNoClip( ply, on )
 	return false
 
 end
- 
+
 
 function GM:OnPlayerChat( ply, text, teamchat, dead )
 
-	// chat.AddText( player, Color( 255, 255, 255 ), ": ", strText )
+	-- chat.AddText( player, Color( 255, 255, 255 ), ": ", strText )
 
 	local tab = {}
 
@@ -87,9 +87,20 @@ function GM:OnPlayerChat( ply, text, teamchat, dead )
 
 	chat.AddText( unpack( tab ) )
 
-	return true
+	return true 
 
 end
+
+local oldRegister = oldRegister or player_manager.RegisterClass
+
+player_manager.RegisterClass =
+function( class, data, base )
+	if not BM:getClasses()[ class ] then
+		BM:addClass( class, data, base )
+	end
+	oldRegister( class, data, base )
+end
+
 
 include 	( "player_class/base/player_default.lua" )
 AddCSLuaFile( "player_class/base/player_default.lua" )

@@ -3,7 +3,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-   SWEP.DrawCrosshair   = false
+   SWEP.DrawCrosshair   = true
    SWEP.ViewModelFOV    = 55
    SWEP.ViewModelFlip   = true
    SWEP.CSMuzzleFlashes = true
@@ -19,16 +19,27 @@ if CLIENT then
     SWEP.PrintName = "Lazarus Rifle"
     function SWEP:drawScopeOverlay( x, y, w, h )
 
-        surface.SetDrawColor( Color( 20, 20, 230, 12 ) )
+        local p = math.min( (CurTime() - self:GetSightTime())/self.scopeAnimTime, 1 )
+
+        surface.SetDrawColor( Color( 20, 20, 230, 24 ) )
         surface.DrawRect( 0, 0, w, h )
 
-        local p = self.scopeT
-        draw.Arc( w/2, h/2, (w/4), 20, 45 - 90*(1-p), -90 + 90*(1-p), 2, Color( 255, 255, 255, 255 ) )
+        draw.Arc( w/2, h/2, (w/4)*p, 20, 70 - 90*(1-p), -110 - 90*(1-p), 6, Color( 255, 255, 255, 100 ) )
+
+        draw.Arc( w/2, h/2, (w/6)*p, 16, -315 + 110*(1-p), -45 + 110*(1-p), 6, Color( 255, 255, 255, 100 ) )
+
+        draw.Arc( w/2, h/2, (w/10)*p, 12, -270 + 90*(1-p), 45 + 90*(1-p), 6, Color( 255, 255, 255, 100 ) )
+
+        draw.Arc( w/2, h/2, 6, 3, 0, 360, 10, Color( 0, 0, 0, 255 ) )
+        draw.Arc( w/2, h/2, 5, 1, 0, 360, 10, Color( 255, 255, 255, 255 ) )
+
+        draw.Arc( w/2, h/2, w, w*0.75, 0, 360, 10, Color( 0, 0, 40, 250 ) )
 
 
     end
 
-    SWEP.crossGapMax     = 2
+    SWEP.crossGapMax    = 2
+    SWEP.scopeAnimTime  = 0.2
     function SWEP:DrawHUD()
 
         if self:GetSights() then
@@ -38,7 +49,9 @@ if CLIENT then
              self:drawScopeOverlay( 0, 0, scrw, scrh )
 
         else
+
             self.BaseClass.DrawHUD( self )
+
         end
 
     end
@@ -88,11 +101,11 @@ SWEP.Primary.ConeScaleDownTime  = 1
 SWEP.Primary.ConeDelay          = 0.4
 SWEP.Primary.Delay          = 0.4
 
-SWEP.Primary.ClipSize       = 15
+SWEP.Primary.ClipSize       = 8
 SWEP.Primary.DefaultClip    = 60
 SWEP.Primary.Automatic      = false
 SWEP.Primary.Ammo           = "357"
-SWEP.Primary.ClipMax        = 15
+SWEP.Primary.ClipMax        = 8
 
 SWEP.Secondary.ClipSize     = -1
 SWEP.Secondary.DefaultClip  = -1
@@ -106,7 +119,7 @@ SWEP.primaryAnim            = ACT_VM_PRIMARYATTACK_SILENCED
 SWEP.reloadAnim             = ACT_VM_RELOAD_SILENCED
 SWEP.deployAnim             = ACT_VM_DRAW_SILENCED
 
-SWEP.reloadTime             = 2
+SWEP.reloadTime             = 2.5
 
 SWEP.Tracer                 = 1
 SWEP.TracerName             = "AR2Tracer"
@@ -115,6 +128,7 @@ SWEP.TracerName             = "AR2Tracer"
 function SWEP:SetupDataTables()
    self:NetworkVar( "Bool", 3, "Sights" )
    self:NetworkVar( "Float", 3, "NextSights" )
+   self:NetworkVar( "Float", 4, "SightTime" )
    self.BaseClass.SetupDataTables( self )
 end
 
@@ -122,8 +136,6 @@ function SWEP:Initialize()
    self.firstDeploy = true
    self.BaseClass.Initialize( self )
    self:SetNextSights( CurTime() )
-   self.scopeT = 0
-   self.delayT = 0
 end
 
 function SWEP:CanSecondaryAttack()
@@ -137,6 +149,7 @@ function SWEP:scope( b )
       self.Owner:SetFOV( 0, 0.1 )
    end
    self:SetSights( b )
+   self:SetSightTime( CurTime() )
    self:SetNextSights( CurTime() + 0.15 )
 end
 
@@ -151,16 +164,4 @@ function SWEP:Reload()
       self:scope( false )
    end
    self.BaseClass.Reload( self )
-end
-
-local d = 0.05
-function SWEP:Think()
-    if CLIENT then
-        if self:GetSights() then
-            self.scopeT = Lerp( FrameTime(), self.scopeT, 1 )
-        else
-            self.scopeT = 0
-        end
-    end
-    self.BaseClass.Think( self )
 end

@@ -6,7 +6,7 @@ BUFF.canStack 	= false 		-- Can the buff stack?
 BUFF.duration 	= 8 			-- The duration of the buff.
 
 BUFF.orbitRadius 	= 50			-- Radius of the props to orbit the player.
-BUFF.numProps 		= 5
+BUFF.numProps 		= 7
 BUFF.propHealth 	= 125
 BUFF.orbitSpeed 	= 3
 BUFF.height 		= 50

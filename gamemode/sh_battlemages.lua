@@ -3,6 +3,19 @@ BM = {}
 BM.passives = {}
 BM.powers 	= {}
 BM.buffs 	= {}
+BM.classes 	= {}
+BM.classChangeQue = {}
+
+function BM:addClass( class, data, base )
+
+	self.classes[ class ] = data
+
+end
+
+function BM:getClasses()
+	return self.classes
+end
+
 
 function BM:setPlayerClass( ply, class )
 	player_manager.SetPlayerClass( ply, class )
@@ -16,6 +29,10 @@ end
 
 function BM:doPlayerDeath( ply, atk, dmginfo )
 	player_manager.RunClass( ply, "onDeath", atk, dmginfo )
+	if IsValid( atk ) and atk:IsPlayer() and atk ~= ply then
+		player_manager.RunClass( ply, "onKilled", ply, atk, dmginfo  )
+		player_manager.RunClass( atk, "onKill", atk, ply, dmginfo  )
+	end
 end
 
 function BM:keyPress( ply, key )
@@ -30,7 +47,6 @@ function BM:entityTakeDamage( targ, atk, dmginfo )
 
 	local t_IsPlayer = targ:IsPlayer()
 	local a_IsPlayer = atk:IsPlayer()
-	local isKill = dmginfo:GetDamage() > targ:Health()
 
 	if t_IsPlayer then
 
@@ -44,13 +60,6 @@ function BM:entityTakeDamage( targ, atk, dmginfo )
 		if a_IsPlayer then
 
 			player_manager.RunClass( atk, "onDealDamage", atk, targ, dmginfo  )
-
-			if isKill then
-
-				player_manager.RunClass( targ, "onKilled", targ, atk, dmginfo  )
-				player_manager.RunClass( atk, "onKill", atk, targ, dmginfo  )
-
-			end
 
 		end
 

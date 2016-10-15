@@ -85,3 +85,17 @@ function draw.Arc(cx,cy,radius,thickness,startang,endang,roughness,color,bClockw
 	surface.SetDrawColor(color)
 	DrawArc(surface.PrecacheArc(cx,cy,radius,thickness,startang,endang,roughness,bClockwise))
 end
+
+function draw.outlinedRectBold( x, y, w, h, t )
+	t = t or 1
+	for i = 1,t do
+		surface.DrawOutlinedRect( x + (i-1), y + (i-1), w - 2*(i-1), h - 2*(i-1) )
+	end
+end
+
+function draw.circleBold( x, y, r, color, t )
+	t = t or 1
+	for i = 1,t do
+		surface.DrawCircle( x, y, r - i + 1, color )
+	end
+end

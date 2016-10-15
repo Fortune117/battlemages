@@ -1,17 +1,21 @@
-AddCSLuaFile( "shared.lua" )
-AddCSLuaFile( "sh_player.lua" )
 AddCSLuaFile( "sh_battlemages.lua" )
+AddCSLuaFile( "shared.lua" )
+AddCSLuaFile( "cl_battlemages.lua" )
+AddCSLuaFile( "sh_player.lua" )
 AddCSLuaFile( "sh_powers.lua" )
 AddCSLuaFile( "sh_buffs.lua" )
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "cl_hud.lua" )
 AddCSLuaFile( "cl_draw.lua" )
 AddCSLuaFile( "cl_powers.lua" )
+AddCSLuaFile( "cl_halooverride.lua" )
+AddCSLuaFile( "cl_classmenu.lua" )
 
 
-include( "shared.lua" )
-include( "sh_player.lua" )
 include( "sh_battlemages.lua" )
+include( "shared.lua" )
+include( "sv_battlemages.lua" )
+include( "sh_player.lua" )
 include( "sh_powers.lua" )
 include( "sh_buffs.lua" )
 include( "sv_player.lua" )
@@ -21,6 +25,7 @@ function GM:PlayerInitialSpawn( ply )
 
 	ply:SetTeam( TEAM_ANGEL )
 
+	ply:setBMClass( "bm_grenadier" )
 
 	self.BaseClass.PlayerInitialSpawn( self, ply )
 end
@@ -29,12 +34,20 @@ local classes =
 {
 	"bm_rng",
 	"bm_admin",
-	"bm_minge"
+	"bm_minge",
+	"bm_ranger"
 }
 function GM:PlayerSpawn( ply )
 
 	ply:setClassPlayerModel()
-	ply:setBMClass( table.Random( classes ) ) 
+
+	for k,data in pairs( BM.classChangeQue ) do
+		if data.player == ply then
+			ply:setBMClass( data.class )
+			table.remove( BM.classChangeQue, k )
+			break
+		end
+	end
 
 	self.BaseClass.PlayerSpawn( self, ply )
 end
@@ -67,4 +80,8 @@ end
 
 function GM:GetFallDamage( ply, speed )
 	return 0
+end
+
+function GM:ShowTeam( ply )
+	ply:ConCommand( "bm_openclassmenu" )
 end

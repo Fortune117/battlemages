@@ -183,8 +183,12 @@ function GM:HUDPaint()
 
 	local ply = LocalPlayer()
 
-	self:drawHealth( ply )
-	self:drawAmmo( ply )
+	local wep = ply:GetActiveWeapon()
+	if wep.GetSights and wep:GetSights() then
+	else
+		self:drawHealth( ply )
+		self:drawAmmo( ply )
+	end
 
 end
 

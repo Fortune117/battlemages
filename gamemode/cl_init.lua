@@ -1,12 +1,14 @@
-include( 'shared.lua' )
-include( 'sh_player.lua' )
 include( 'sh_battlemages.lua' )
+include( 'shared.lua' )
+include( "cl_battlemages.lua" )
+include( 'sh_player.lua' )
 include( 'sh_powers.lua' )
 include( 'sh_buffs.lua' )
 include( 'cl_hud.lua' )
 include( 'cl_draw.lua' )
 include( 'cl_powers.lua' )
-include( 'cl_halooverride.lua' )
+include( "cl_halooverride.lua" )
+include( "cl_classmenu.lua" )
 
 surface.CreateFont( "BM_HUDLarge", { font = "Trebuchet18", size = 80, weight = 450, scanlines = true, antialias = true } )
 surface.CreateFont( "BM_HUDLarge2", { font = "Trebuchet18", size = 60, weight = 450, scanlines = true, antialias = true } )
@@ -49,4 +51,20 @@ end
 function GM:ShouldDrawLocalPlayer()
 	local ply = LocalPlayer()
 	return ply:isThirdPerson() or (ply.drawDist or 0) > 0
+end
+
+local ENT = FindMetaTable( "Entity" )
+function ENT:isVisible( ent )
+	local pos = self:GetPos()
+	if self:IsPlayer() then
+		pos = self:GetShootPos()
+	end
+	local epos = ent:GetPos()
+	local tr = util.QuickTrace( pos, (epos - pos):GetNormalized()*64000, { self } )
+	if IsValid( tr.Entity ) then
+		if tr.Entity == ent then
+			return true
+		end
+	end
+	return false
 end

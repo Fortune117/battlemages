@@ -17,7 +17,7 @@ function PLY:giveSpeedMultiplier( m, dur, id )
 
 	local mults = self:getSpeedMultipliers()
 
-	id = id or #mults
+	id = id or #mults + 1
 	mults[ id ] = { mul = m, dur = CurTime() + dur }
 
 end

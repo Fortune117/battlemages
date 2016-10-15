@@ -153,14 +153,16 @@ if CLIENT then
         if ply:hasBuff( "buff_powerslap" ) then
 
             local wep = ply:GetActiveWeapon()
-            local vm = ply:GetViewModel( )
+            local vm = ply:GetViewModel()
             local blur = 3 + math.Rand( -0.3, 0.3 )
-    		local wFOV = wep.ViewModelFOV
-    		local fov = wFOV + 15.5
+            if wep and IsValid( wep ) then
+        		local wFOV = wep.ViewModelFOV
+        		local fov = wFOV + 15.5
 
-    		if IsValid( vm ) then
-    		    halo.Add( {vm}, buffColor, blur, blur, 1, true, true, fov )
-            end
+        		if IsValid( vm ) then
+        		    halo.Add( {vm}, buffColor, blur, blur, 1, true, true, fov )
+                end
+            end 
 
         end
     end )
@@ -246,6 +248,18 @@ function SWEP:OnRemove()
 end
 
 if CLIENT then
+
+    function SWEP:PreDrawViewModel(vm)
+    	if self.ShowViewModel == false then
+    		render.SetBlend(0)
+    	end
+    end
+
+    function SWEP:PostDrawViewModel(vm)
+    	if self.ShowViewModel == false then
+    		render.SetBlend(1)
+    	end
+    end
 
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()

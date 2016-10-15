@@ -7,6 +7,16 @@ function PLY:getClass()
 	return player_manager.GetPlayerClass( self )
 end
 
+function PLY:getDisplayClass()
+	for i = 1,#BM.classChangeQue do
+		local data = BM.classChangeQue[ i ]
+		if data.player == self then
+			return data.class
+		end
+	end
+	return self:getClass()
+end
+
 if SERVER then
 
 	util.AddNetworkString( "bm_setThirdPerson" )
@@ -22,6 +32,7 @@ if SERVER then
 	end
 
 	function PLY:setBMClass( class )
+		hook.Call( "OnPlayerChangeBMClass", GAMEMODE, self, self:getClass(), class )
 		player_manager.SetPlayerClass( self, class )
 	end
 

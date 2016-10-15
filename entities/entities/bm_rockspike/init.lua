@@ -3,53 +3,72 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include( 'shared.lua' )
 
-ENT.Model = Model( "models/props_wasteland/rockcliff01k.mdl" )
-ENT.riseAmount 	= 80
-ENT.riseTime 	= 0.05
-ENT.liveTime 	= 5 
-
 function ENT:Initialize()
 
 	self:SetModel( self.Model )
-	self.riseEnd = CurTime() + self.riseTime 
-	self:SetCollisionGroup( COLLISION_GROUP_WORLD )
+	self:SetCollisionGroup( COLLISION_GROUP_WEAPON )
 	self:PhysicsInit( SOLID_VPHYSICS )
-	self:SetMoveType( MOVETYPE_NOCLIP )
-	if IsValid( self:GetPhysicsObject() ) then 
-		self:PhysWake()
-	end 
-	self:beginRising()
+	self:SetMoveType( MOVETYPE_NONE )
+	self:DrawShadow( false )
 
 	self.removeTime = CurTime() + self.liveTime
 
-	self.startZ = self:GetPos().z 
+	self:doBlast()
 
 end
 
-function ENT:beginRising()
-	local speed = self.riseAmount
-	self:SetVelocity( Vector( 0, 0, self.riseAmount/self.riseTime ) )
-end 
+function ENT:setStats( damage, force,ownerFScale, radius )
+	self.damage = damage
+	self.force = force
+	self.ownerFScale = ownerFScale
+	self.radius = radius
+end
 
-function ENT:finishRising()
-	self:SetMoveType( MOVETYPE_NONE )
-end 
+function ENT:doBlast()
+	local ply = self:GetOwner()
+	local pos = self:GetPos()
+	for k,v in pairs( ents.GetAll() ) do
+		if v:IsPlayer() and not v:Alive() then continue end
+		local vpos = v:GetPos()
+		local dist = vpos:DistToSqr( pos )
+		if dist <= self.radius and v:Visible( self ) then
+			local norm = ( vpos - pos ):GetNormalized()
+			self:doHit( v, norm )
+		end
+	end
+end
 
-function ENT:Think() 
+function ENT:doHit( ent, norm )
 
-	if CurTime() > self.riseEnd and not self.riseFinished then 
-		self:finishRising()
-		self.riseFinished = true 
-	end 
+	local isOwner = ent == self:GetOwner()
 
-	if CurTime() > self.removeTime  then 
-		if not self.removePush then 
-			self:SetMoveType( MOVETYPE_NOCLIP )
-			self:SetVelocity( Vector( 0, 0, -(self.riseAmount/self.riseTime) ) )
-			self.removePush = true 
-		elseif self:GetPos().z < self.startZ then  
-			self:Remove()
-		end 
-	end 
+	local s = isOwner and 0 or 1
+	local s2 = isOwner and self.ownerFScale or 1
 
-end 
+	local f2 = norm*self.force
+	f2.z = 0
+	local force = self:GetUp()*self.force*s2 + f2
+
+	local dmg = DamageInfo()
+	dmg:SetDamageType( DMG_SONIC )
+	dmg:SetDamage( self.damage*s )
+	dmg:SetDamageForce( force )
+	dmg:SetInflictor( self )
+	dmg:SetAttacker( self:GetOwner() or self )
+
+
+	ent:SetPos( ent:GetPos() + Vector( 0, 0, 5 ) )
+	ent:SetVelocity( force )
+	ent:TakeDamageInfo( dmg )
+
+end
+
+function ENT:Think()
+
+	if CurTime() > self.removeTime then
+		self:Remove()
+	end
+
+end
+
+--for k,v in pairs( ents.FindByClass( "bm_rockspike") ) do v:Remove() end

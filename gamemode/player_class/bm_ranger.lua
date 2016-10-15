@@ -2,14 +2,14 @@
 
 local PLAYER = {}
 
-PLAYER.DisplayName				= "Abusive Admin"
+PLAYER.DisplayName				= "Ranger"
 
-PLAYER.MaxHealth				= 200		-- Max health we can have
-PLAYER.StartHealth				= 200		-- How much health we start with
+PLAYER.MaxHealth				= 175		-- Max health we can have
+PLAYER.StartHealth				= 175		-- How much health we start with
 PLAYER.StartArmor				= 0			-- How much armour we start with
-PLAYER.WalkSpeed				= 400		-- How fast to move when not running
-PLAYER.RunSpeed					= 400		-- How fast to move when running
-PLAYER.JumpPower				= 320		-- How powerful our jump should be
+PLAYER.WalkSpeed				= 410		-- How fast to move when not running
+PLAYER.RunSpeed					= 410		-- How fast to move when running
+PLAYER.JumpPower				= 330		-- How powerful our jump should be
 PLAYER.CrouchedWalkSpeed		= 0.5		-- Multiply move speed by this when crouching
 PLAYER.DuckSpeed				= 0.25		-- How fast to go from not ducking, to ducking
 PLAYER.UnDuckSpeed				= 0.3		-- How fast to go from ducking, to not ducking
@@ -22,21 +22,23 @@ PLAYER.UseVMHands				= true		-- Uses viewmodel hands
 
 PLAYER.passives =
 {
+	"p_doublejump"
 }
 
 PLAYER.powers 	=
 {
-	[ IN_USE ] = "a_powerslap",
-	[ IN_SPEED ] = "a_noclip"
+	[ IN_USE ] = "a_tripmine",
+	[ IN_SPEED ] = "a_shuriken"
 }
 
-PLAYER.ult = "u_godmode"
-PLAYER.maxUltCharge = 50
+PLAYER.ult = "u_shadowwalk"
+PLAYER.maxUltCharge = 10
+
 
 function PLAYER:Loadout()
 
-	self.Player:Give( "weapon_bm_banhammer" )
+	self.Player:Give( "weapon_bm_sniper" )
 
 end
 
-player_manager.RegisterClass( "bm_admin", PLAYER, "bm_base" )
+player_manager.RegisterClass( "bm_ranger", PLAYER, "bm_base" )

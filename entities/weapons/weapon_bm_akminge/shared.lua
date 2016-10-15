@@ -3,7 +3,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-   SWEP.crossGapMax     = 36
+   SWEP.crossGapMax     = 30
    SWEP.DrawCrosshair   = true
    SWEP.ViewModelFOV    = 55
    SWEP.ViewModelFlip   = true
@@ -32,12 +32,12 @@ SWEP.AutoSwitchFrom     = false
 SWEP.Primary.Sound              = Sound( "weapons/usp/usp1.wav" )
 SWEP.Primary.DryFireSound       = "Weapon_Pistol.Empty" --Empty Clip Sound
 SWEP.Primary.Recoil             = 0.25
-SWEP.Primary.Damage             = 25
+SWEP.Primary.Damage             = 28
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.Cone               = 0.002
 SWEP.Primary.ConeMax            = 0.03
-SWEP.Primary.ConeScaleTime      = 0.5
-SWEP.Primary.ConeScaleDownTime  = 0.3
+SWEP.Primary.ConeScaleTime      = 0.4
+SWEP.Primary.ConeScaleDownTime  = 0.35
 SWEP.Primary.ConeDelay          = 0.1
 SWEP.Primary.Delay              = 0.07
 
