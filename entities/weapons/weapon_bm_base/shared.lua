@@ -47,7 +47,7 @@ if CLIENT then
 
           local x4, y4 = x + self.crossGap, y - self.crossWidth/2
           surface.DrawOutlinedRect( x4, y4, self.crossHeight, self.crossWidth )
-      end 
+      end
 
    end
 
@@ -315,7 +315,7 @@ function SWEP:Initialize()
    self.isReloading = self.GetReloading
 
    self:SetShootTime( 0 )
-
+   
    self:SetConeScale( self.Primary.Cone )
 
    self.coneDelay = 0

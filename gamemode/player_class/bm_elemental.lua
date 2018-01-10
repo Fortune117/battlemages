@@ -26,16 +26,17 @@ PLAYER.passives =
 
 PLAYER.powers 	=
 {
-	[ IN_SPEED ] = "a_rockspike"
+	[ IN_USE ] = "a_elempowers",
+	[ IN_SPEED ] = "a_elempowerchange"
 }
 
 PLAYER.ult = "a_pounce"
 PLAYER.maxUltCharge = 10
-
+ 
 
 function PLAYER:Loadout()
 
-	self.Player:Give( "weapon_bm_zombie" )
+	self.Player:Give( "weapon_bm_fists" )
 
 end
 

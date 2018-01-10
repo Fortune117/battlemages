@@ -76,5 +76,7 @@ function ENT:PhysicsCollide( colData, collider )
 			end
 		end
 
+		self:SetPos( colData.HitPos )
+
 	end
 end

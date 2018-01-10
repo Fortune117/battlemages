@@ -6,14 +6,16 @@ include( 'shared.lua' )
 function ENT:Initialize()
 
 	self:SetModel( self.Model )
-	self:SetCollisionGroup( COLLISION_GROUP_WEAPON )
-	self:PhysicsInit( SOLID_VPHYSICS )
+	self:SetCollisionGroup( COLLISION_GROUP_PUSHAWAY )
+	--self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_NONE )
 	self:DrawShadow( false )
 
 	self.removeTime = CurTime() + self.liveTime
 
 	self:doBlast()
+
+	self:EmitSound( "physics/concrete/concrete_break2.wav" )
 
 end
 
@@ -43,9 +45,9 @@ function ENT:doHit( ent, norm )
 	local isOwner = ent == self:GetOwner()
 
 	local s = isOwner and 0 or 1
-	local s2 = isOwner and self.ownerFScale or 1
+	local s2 = isOwner and self.ownerFScale or 0.5
 
-	local f2 = norm*self.force
+	local f2 = norm*self.force*s2
 	f2.z = 0
 	local force = self:GetUp()*self.force*s2 + f2
 
@@ -57,7 +59,7 @@ function ENT:doHit( ent, norm )
 	dmg:SetAttacker( self:GetOwner() or self )
 
 
-	ent:SetPos( ent:GetPos() + Vector( 0, 0, 5 ) )
+	ent:SetPos( ent:GetPos() + Vector( 0, 0, 2 ) )
 	ent:SetVelocity( force )
 	ent:TakeDamageInfo( dmg )
 

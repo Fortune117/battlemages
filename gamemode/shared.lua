@@ -6,7 +6,7 @@ GM.Author 	= "Fortune"
 GM.Email 	= ""
 GM.Website 	= ""
 
-TEAM_ANGEL = 1
+TEAM_ANGEL = 1 
 TEAM_DEMON = 2
 
 ROUND_WAITING = 0
@@ -87,7 +87,7 @@ function GM:OnPlayerChat( ply, text, teamchat, dead )
 
 	chat.AddText( unpack( tab ) )
 
-	return true 
+	return true
 
 end
 

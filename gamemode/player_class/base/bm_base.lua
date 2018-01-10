@@ -260,8 +260,8 @@ function PLAYER:think() -- Called each tick.
 
 	local b = self:getBuffs()
 	for k,v in pairs( b ) do
-		for i = 1,#v do
-			local buff = v[ i ]
+		PrintTable( v )
+		for k2, buff in pairs( v ) do
 			buff:think( ply )
 			if CurTime() > buff:getRemoveTime() then
 				ply:removeBuff( buff.class )

@@ -20,6 +20,8 @@ SWEP.Primary.DefaultClip	= -1
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
 
+SWEP.Primary.Delay = 0.6
+
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= true
@@ -73,8 +75,8 @@ function SWEP:PrimaryAttack( right )
 	self:UpdateNextIdle()
 	self:SetNextMeleeAttack( CurTime() + 0.2 )
 
-	self:SetNextPrimaryFire( CurTime() + 0.6 )
-	self:SetNextSecondaryFire( CurTime() + 0.6 )
+	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
+	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 
 end
 

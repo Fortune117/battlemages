@@ -29,7 +29,7 @@ function GM:PlayerInitialSpawn( ply )
 
 	self.BaseClass.PlayerInitialSpawn( self, ply )
 end
-
+ 
 local classes =
 {
 	"bm_rng",
