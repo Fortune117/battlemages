@@ -1,0 +1,42 @@
+﻿StaminaBar
+{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 1);
+  left: 100px;
+  bottom: 100px;
+  width: 300px;
+  height: 7px;
+  transition: all 0.4s linear;
+  border-left: 1px white;
+  border-right: 1px white;
+  opacity: 0;
+  
+  .fill-bar
+  {
+    margin: 1px;
+    position: relative;
+    width: 100%;
+    height: 4px;
+    top: 0;
+    left: 0;
+  }
+  
+  .broken-bar
+  {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background-image: url("textures\ui\ui_stripes.png");
+    background-tint: rgba(255, 40, 40, 1);
+    background-size: 9px;
+    border-left: 1px;
+    border-color: white;
+  }
+  
+  &.visible
+  {
+    opacity: 1;
+  }
+}

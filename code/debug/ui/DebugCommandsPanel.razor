@@ -1,0 +1,12 @@
+﻿@using Sandbox.UI;
+
+@namespace BattleMages.Debug.UI
+@attribute [StyleSheet("/debug/ui/DebugCommandsPanel.scss")]
+@inherits Panel
+
+<root>
+    <label class="header">Debug Menu</label>
+    <CollapsePanel @ref=CommandsList />
+    <CollapsePanel @ref=EntityList />
+    <CollapsePanel @ref=ItemList />
+</root>

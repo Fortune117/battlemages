@@ -1,0 +1,10 @@
+﻿@using Sandbox.UI;
+
+@namespace BattleMages.UI
+@attribute [StyleSheet( "/ui/StaminaBar.scss" )]
+@inherits Panel
+
+<root>
+    <Panel @ref=FillBar class="fill-bar" />
+    <Panel @ref=BrokenBar class="broken-bar" />
+</root>

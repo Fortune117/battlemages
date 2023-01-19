@@ -1,0 +1,72 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Health = 
+		{
+			Max = 100
+		}
+		Stamina = 
+		{
+			Max = 100
+			RechargeDelay = 2
+			RechargeRate = 10
+			SecondWindDelay = 15
+			JumpCost = 10
+			SprintCost = 4
+		}
+		Movement = 
+		{
+			SprintSpeed = 250
+			SprintForwardProportionality = 1
+			DefaultSpeed = 150
+			WalkSpeed = 80
+			CrouchSpeed = 60
+			JumpPower = 295
+			JumpOffsetCurve = 
+			[
+				{
+					x = 0.5
+					y = 0.5
+				},
+			]
+			JumpCooldown = 0.35
+			JumpLandingOffsetCurve = 
+			[
+				{
+					x = 0.5
+					y = 0.5
+				},
+			]
+			Acceleration = 7
+			AccelerationForwardProportionality = 1
+			AirAcceleration = 10
+			FallDamageThreshold = 500
+			FallDamageKillThreshold = 390
+			FallDamageCurve = 
+			[
+				{
+					x = 0.5
+					y = 0.5
+				},
+			]
+			GroundFriction = 3
+			StopSpeed = 110
+			GroundAngle = 46
+			StepSize = 18
+			MaxNonJumpVelocity = 140
+			BodyGirth = 32
+			BodyHeight = 72
+			EyeHeight = 64
+			Gravity = 800
+			AirControl = 30
+		}
+		CameraMotion = 
+		{
+			ViewBobSpeedThreshold = 150
+			ViewBobMagnitude = 1.5
+			ViewBobFrequency = 7
+			ViewBobRunningMultiplier = 1.2
+		}
+	}
+}
