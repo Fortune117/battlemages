@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "battle_mages": {
+      "commandName": "Executable",
+      "executablePath": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\sbox.exe",
+      "commandLineArgs": "\u002Bdeveloper 1 -w 1920 -h 1080 -noassert -tools"
+    }
+  }
+}
