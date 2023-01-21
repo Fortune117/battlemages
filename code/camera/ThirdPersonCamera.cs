@@ -33,12 +33,22 @@ public class ThirdPersonCamera : BaseCamera
 		}
 		else
 		{
-			Position = center;
-			Rotation = Rotation.FromAxis( Vector3.Up, 4 ) * Entity.ViewAngles.ToRotation();
+			center = Position + Vector3.Up * 64;
 
-			float distance = 130.0f * pawn.Scale;
-			targetPos = Position + Input.AnalogLook.ToRotation().Right * ((pawn.CollisionBounds.Maxs.x + 15) * pawn.Scale);
-			targetPos += Input.AnalogLook.ToRotation().Forward * -distance;
+			var pos = center;
+			var rot = Camera.Rotation * Rotation.FromAxis( Vector3.Up, -16 );
+
+			float distance = 130.0f * Entity.Scale;
+			targetPos = pos + rot.Right * ((Entity.CollisionBounds.Mins.x + 32) * Entity.Scale);
+			targetPos += rot.Forward * -distance;
+
+			var tr = Trace.Ray( pos, targetPos )
+				.WithAnyTags( "solid" )
+				.Ignore( Entity )
+				.Radius( 8 )
+				.Run();
+
+			Position = tr.EndPosition;
 		}
 
 		if ( thirdperson_collision )
@@ -63,9 +73,9 @@ public class ThirdPersonCamera : BaseCamera
 
 	protected override void SetupCamera()
 	{
-		Sandbox.Camera.Position = Position;
-		Sandbox.Camera.Rotation = Rotation;
-		Sandbox.Camera.FirstPersonViewer = null;
+		Camera.Position = Position;		
+		Camera.Rotation = Entity.ViewAngles.ToRotation();
+		Camera.FirstPersonViewer = null;
 	}
 
 

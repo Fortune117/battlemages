@@ -34,8 +34,14 @@
 			JumpLandingOffsetCurve = 
 			[
 				{
+					y = 1
+				},
+				{
 					x = 0.5
-					y = 0.5
+				},
+				{
+					x = 1
+					y = 1
 				},
 			]
 			Acceleration = 7
@@ -44,12 +50,16 @@
 			FallDamageThreshold = 500
 			FallDamageKillThreshold = 390
 			FallDamageCurve = 
-			[
-				{
-					x = 0.5
-					y = 0.5
-				},
-			]
+			{
+				rangey = "-1,0"
+				frames = 
+				[
+					{
+						x = 0.5
+						y = 0.5
+					},
+				]
+			}
 			GroundFriction = 3
 			StopSpeed = 110
 			GroundAngle = 46
