@@ -73,7 +73,7 @@ public partial class Player
 
     private bool CanDoLowHealthSounds()
     {
-        if (Health < 10)
+        if (Health > 25)
             return false;
 
         if (timeSinceLastPain < 2f)
