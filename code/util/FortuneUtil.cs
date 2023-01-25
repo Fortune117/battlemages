@@ -47,4 +47,11 @@ public static class FortuneUtil
         panel.Style.Left = position.x;
         panel.Style.Top = position.y;
     }
+
+    public static Ray GetCameraRay()
+    {
+        Game.AssertClient();
+
+        return new Ray(Camera.Position, Camera.Rotation.Forward);
+    }
 }
