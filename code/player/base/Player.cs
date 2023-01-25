@@ -155,7 +155,6 @@ public partial class BasePlayer : AnimatedEntity
 		Game.AssertServer();
 
 		LifeState = LifeState.Alive;
-		Health = 100;
 		Velocity = Vector3.Zero;
 		this.ClearWaterLevel();
 

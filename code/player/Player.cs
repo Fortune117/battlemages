@@ -87,6 +87,8 @@ public partial class Player : BasePlayer
 		
 		Components.Create<HeadMovementComponent>();
 		
+		Health = Stats.Health.Max;
+		
 		SurroundingBoundsMode = SurroundingBoundsType.Hitboxes;
 
 		base.Spawn();
@@ -105,7 +107,7 @@ public partial class Player : BasePlayer
 		SetCloudModel();
 
 		AddStartingItems();
-			
+
 		Controller = new WalkController();
 		Animator = new StandardPlayerAnimator();
 
