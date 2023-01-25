@@ -67,8 +67,7 @@ public partial class Powers : Carriable
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
         TimeSinceStartedUsingPower = 0;
 
-        BlinkStartSFX();
-        CreateTargetVFX();
+        StartBlink();
     }
 
     private void CancelPower()
@@ -87,7 +86,7 @@ public partial class Powers : Carriable
         TimeSinceReleasedPower = 0;
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, false);
         
-        StartBlink();
+        ReleaseBlink();
     }
 
     public override void FrameSimulate(IClient cl)

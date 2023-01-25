@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using BattleMages.PostProcessing;
+using Sandbox;
 
 namespace BattleMages;
 
@@ -23,6 +24,8 @@ public partial class Powers
     [Net, Predicted]
     private Vector3 BlinkEndPosition { get; set; }
 
+    private Vector3 BlinkDirection => (BlinkEndPosition - BlinkStartPosition).Normal;
+
     private string BlinkWhisperStartSFX => "blink.whisper.start";
     private string BlinkWhisperReleaseSFX => "blink.whisper.release";
     private string BlinkCastStartSFX => "blink.cast.start";
@@ -31,14 +34,7 @@ public partial class Powers
     private string BlinkHoldSFX => "blink.hold";
 
     private Sound blinkHoldSound;
-    
-    [ClientRpc]
-    private void CreateTargetVFX()
-    {
-        BlinkTarget?.Destroy();
-        BlinkTarget = Particles.Create("particles/powers/blink/blink_target.vpcf");
-    }
-    
+
     private TraceResult GetBlinkTrace()
     {
         TraceResult tr;
@@ -96,6 +92,8 @@ public partial class Powers
     
     private void UpdateBlinkVFX()
     {
+        BlinkPostProcessHook.Instance?.SetBlinkFraction(TimeUntilBlinkFinished.Fraction);
+        
         if (BlinkTarget is null)
             return;
 
@@ -116,6 +114,13 @@ public partial class Powers
         blinkHoldSound = Sound.FromScreen(BlinkHoldSFX);
     }
 
+    [ClientRpc]
+    private void CreateTargetVFX()
+    {
+        BlinkTarget?.Destroy();
+        BlinkTarget = Particles.Create("particles/powers/blink/blink_target.vpcf");
+    }
+    
     private void BlinkReleaseSFX()
     {
         Sound.FromEntity(BlinkWhisperReleaseSFX, Player);
@@ -123,6 +128,13 @@ public partial class Powers
     }
 
     private void StartBlink()
+    {
+        BlinkStartSFX();
+        CreateTargetVFX();
+        BlinkPostProcessHook.Instance?.SetHoldingBlink(true);
+    }
+
+    private void ReleaseBlink()
     {
         BlinkReleaseSFX();
         
@@ -133,14 +145,17 @@ public partial class Powers
         
         BlinkTarget?.Destroy(true);
         BlinkTarget = null;
+        
+        BlinkPostProcessHook.Instance?.SetBlinking(true);
+        BlinkPostProcessHook.Instance?.SetHoldingBlink(false);
     }
 
     private void BlinkSimulate()
     {
         Player.Position = BlinkStartPosition.LerpTo(BlinkEndPosition, TimeUntilBlinkFinished.Fraction);
-        
+
         if (TimeUntilBlinkFinished <= 0)
-            EndBlink();
+            FinishBlink();
     }
 
     private void CancelBlink()
@@ -149,12 +164,19 @@ public partial class Powers
         BlinkTarget = null;
 
         blinkHoldSound.Stop();
+        BlinkPostProcessHook.Instance?.SetBlinking(false);
+        BlinkPostProcessHook.Instance?.SetHoldingBlink(false);
     }
     
-    private void EndBlink()
+    private void FinishBlink()
     {
         IsBlinking = false;
         blinkHoldSound.Stop();
+
+        var endParticles = Particles.Create("particles/powers/blink/blink_end_sparks.vpcf", Player);
+        endParticles.SetPosition(1, BlinkDirection * BlinkSpeed);
+        
+        BlinkPostProcessHook.Instance?.SetBlinking(false);
     }
     
 }
