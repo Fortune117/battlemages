@@ -2,6 +2,12 @@
 {
 	_class = "CParticleSystemDefinition"
 	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+		},
+	]
 	m_Children = 
 	[
 		{
@@ -10,11 +16,8 @@
 		{
 			m_ChildRef = resource:"particles/powers/blink/blink_target_floor.vpcf"
 		},
-	]
-	m_controlPointConfigurations = 
-	[
 		{
-			m_name = "preview"
+			m_ChildRef = resource:"particles/powers/blink/blink_target_light.vpcf"
 		},
 	]
 }
