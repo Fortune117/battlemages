@@ -18,8 +18,8 @@
 			SprintSpeed = 250
 			SprintForwardProportionality = 1
 			DefaultSpeed = 150
-			WalkSpeed = 80
-			CrouchSpeed = 60
+			WalkSpeed = 110
+			CrouchSpeed = 100
 			JumpPower = 295
 			JumpOffsetCurve = 
 			[
