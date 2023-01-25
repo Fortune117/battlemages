@@ -174,7 +174,7 @@ public partial class Powers
         blinkHoldSound.Stop();
 
         var endParticles = Particles.Create("particles/powers/blink/blink_end_sparks.vpcf", Player);
-        endParticles.SetPosition(1, BlinkDirection * BlinkSpeed);
+        endParticles?.SetPosition(1, BlinkDirection * BlinkSpeed);
         
         BlinkPostProcessHook.Instance?.SetBlinking(false);
     }
