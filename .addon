@@ -24,7 +24,7 @@
     "ProjectTemplate": null,
     "Summary": "Battle it out as WIP Characters!!",
     "Description": "babble mages",
-    "Public": false,
+    "Public": true,
     "ReplaceTags": "firstperson magic"
   }
 }
