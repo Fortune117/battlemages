@@ -67,6 +67,7 @@ public partial class Powers : Carriable
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
         TimeSinceStartedUsingPower = 0;
 
+        BlinkStartSFX();
         CreateTargetVFX();
     }
 
@@ -76,9 +77,8 @@ public partial class Powers : Carriable
         TimeSinceReleasedPower = 0;
         IsUsingPower = false;
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
-        
-        BlinkTarget?.Destroy(true);
-        BlinkTarget = null;
+
+        CancelBlink();
     }
     
     private void ReleasePower()

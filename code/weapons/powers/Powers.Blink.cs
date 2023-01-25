@@ -22,6 +22,15 @@ public partial class Powers
     
     [Net, Predicted]
     private Vector3 BlinkEndPosition { get; set; }
+
+    private string BlinkWhisperStartSFX => "blink.whisper.start";
+    private string BlinkWhisperReleaseSFX => "blink.whisper.release";
+    private string BlinkCastStartSFX => "blink.cast.start";
+    private string BlinkCastReleaseSFX => "blink.cast.release";
+
+    private string BlinkHoldSFX => "blink.hold";
+
+    private Sound blinkHoldSound;
     
     [ClientRpc]
     private void CreateTargetVFX()
@@ -95,8 +104,28 @@ public partial class Powers
         BlinkTarget.SetPosition(1, GetDownTrace(blinkTrace).EndPosition);
     }
 
+    private void BlinkStartSFX()
+    {
+        Sound.FromEntity(BlinkWhisperStartSFX, Player);
+
+        if (Game.IsServer)
+            return;
+        
+        Sound.FromScreen(BlinkCastStartSFX);
+        Sound.FromScreen(BlinkCastStartSFX);
+        blinkHoldSound = Sound.FromScreen(BlinkHoldSFX);
+    }
+
+    private void BlinkReleaseSFX()
+    {
+        Sound.FromEntity(BlinkWhisperReleaseSFX, Player);
+        Sound.FromEntity(BlinkCastReleaseSFX, Player);
+    }
+
     private void StartBlink()
     {
+        BlinkReleaseSFX();
+        
         BlinkStartPosition = Player.Position;
         BlinkEndPosition = GetBlinkFinalPosition();
         IsBlinking = true;
@@ -114,9 +143,18 @@ public partial class Powers
             EndBlink();
     }
 
+    private void CancelBlink()
+    {
+        BlinkTarget?.Destroy(true);
+        BlinkTarget = null;
+
+        blinkHoldSound.Stop();
+    }
+    
     private void EndBlink()
     {
         IsBlinking = false;
+        blinkHoldSound.Stop();
     }
     
 }
