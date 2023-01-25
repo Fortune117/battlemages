@@ -21,6 +21,9 @@ public class BlinkPostProcessHook : ScreenEffects
     public BlinkPostProcessHook()
     {
         Instance = this;
+
+        Vignette.Roundness = 0f;
+        Vignette.Smoothness = 1f;
     }
 
     public override void OnFrame(SceneCamera target)

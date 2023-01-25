@@ -1,9 +1,9 @@
 {
   "Title": "Battle Mages",
   "Type": "game",
-  "Org": "local",
+  "Org": "fdd",
   "Ident": "battle_mages",
-  "Tags": null,
+  "Tags": "",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -21,6 +21,10 @@
     "RankType": "None",
     "PerMapRanking": false,
     "LeaderboardType": "None",
-    "ProjectTemplate": null
+    "ProjectTemplate": null,
+    "Summary": "Battle it out as WIP Characters!!",
+    "Description": "babble mages",
+    "Public": false,
+    "ReplaceTags": "firstperson magic"
   }
 }

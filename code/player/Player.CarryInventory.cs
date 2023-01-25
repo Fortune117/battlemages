@@ -199,18 +199,19 @@ public partial class Player
                 }
             }
 
-            if (Input.Pressed(InputButton.Slot1)) SwitchToSlot( 0 );
+            /*if (Input.Pressed(InputButton.Slot1)) SwitchToSlot( 0 );
             if (Input.Pressed(InputButton.Slot2)) SwitchToSlot( 1 );
             if (Input.Pressed(InputButton.Slot3)) SwitchToSlot( 2 );
             if (Input.Pressed(InputButton.Slot4)) SwitchToSlot( 3 );
             if (Input.Pressed(InputButton.Slot5)) SwitchToSlot( 4 );
             if (Input.Pressed(InputButton.Slot6)) SwitchToSlot( 5 );
-            if (Input.Pressed(InputButton.Slot7)) SwitchToSlot( 6 );
+            if (Input.Pressed(InputButton.Slot7)) SwitchToSlot( 6 );*/
         }
     }
 
     public void AddStartingItems()
     {
         AddToSlot(new Powers(), SLOT_PRIMARY, false);
+        SwitchToSmartActive();
     }
 }
