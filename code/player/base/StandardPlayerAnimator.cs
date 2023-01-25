@@ -58,7 +58,7 @@ public class StandardPlayerAnimator : PawnAnimator
 
 		SetAnimParameter( "duck", duck );
 
-		if ( player != null && player.ActiveChild is BaseCarriable carry )
+		if ( player != null && player.ActiveChild is Carriable carry )
 		{
 			carry.SimulateAnimator( this );
 		}

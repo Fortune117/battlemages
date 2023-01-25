@@ -4,23 +4,10 @@ public static class BMTags
 {
     public static class ViewModelAnims
     {
-        public const string Aiming = "bAiming";
-        public const string Crouching = "bCrouching";
-        public const string Deploy = "bDeploy";
-        public const string Empty = "bEmpty";
-        public const string HeadInteract = "bHeadInteract";
-        public const string Holster = "bHolster";
-        public const string IsReloading = "bIsReloading";
-        public const string LastShot = "bLastShot";
-        public const string Moving = "bMoving";
-        public const string Running = "bRunning";
-        public const string Reload = "bReload";
-        public const string Shoot = "bShoot";
-        public const string HeadInteractType = "eHeadInteractType";
         public const string MoveSpeed = "fMoveSpeed";
-        public const string MoveX = "fMoveX";
-        public const string MoveY = "fMoveY";
-        public const string ReloadFraction = "fReloadFraction";
+        public const string PowerType = "ePowerType";
+        public const string StartUsingPower = "bStartUsingPower";
+        public const string ReleasePower = "bReleasePower";
     }
     
     public static class PhysicsTags

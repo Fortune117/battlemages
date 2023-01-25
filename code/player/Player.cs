@@ -103,7 +103,9 @@ public partial class Player : BasePlayer
 		ResetStamina();
 
 		SetCloudModel();
-		
+
+		AddStartingItems();
+			
 		Controller = new WalkController();
 		Animator = new StandardPlayerAnimator();
 

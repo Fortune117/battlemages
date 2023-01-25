@@ -49,4 +49,31 @@ public partial class BMGame : GameManager
 			pawn.Transform = tx;
 		}
 	}
+	
+	[ConCmd.Server("noclip")]
+	public static void DoPlayerNoclip()
+	{
+		if (ConsoleSystem.Caller.Pawn is not Player player)
+			return;
+
+		if ( player.DevController is NoclipController )
+		{
+			Log.Info( "Noclip Mode Off" );
+			player.DevController = null;
+		}
+		else
+		{
+			Log.Info( "Noclip Mode On" );
+			player.DevController = new NoclipController();
+		}
+	}
+	
+
+	[ConCmd.Server("kill")]
+	public static void DoPlayerSuicide()
+	{
+		if (ConsoleSystem.Caller.Pawn is not Player player) return;
+
+		player.OnKilled();
+	}
 }

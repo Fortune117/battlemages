@@ -6,7 +6,7 @@ namespace BattleMages;
 /// An entity that can be carried in the player's inventory and hands.
 /// </summary>
 [Title( "Carriable" ), Icon( "luggage" )]
-public class BaseCarriable : AnimatedEntity
+public class Carriable : AnimatedEntity
 {
 	public virtual string ViewModelPath => null;
 	public BaseViewModel ViewModelEntity { get; protected set; }
@@ -142,10 +142,13 @@ public class BaseCarriable : AnimatedEntity
 		if ( string.IsNullOrEmpty( ViewModelPath ) )
 			return;
 
-		ViewModelEntity = new BaseViewModel();
-		ViewModelEntity.Position = Position;
-		ViewModelEntity.Owner = Owner;
-		ViewModelEntity.EnableViewmodelRendering = true;
+		ViewModelEntity = new ViewModel
+		{
+			Position = Position,
+			Owner = Owner,
+			EnableViewmodelRendering = true
+		};
+
 		ViewModelEntity.SetModel( ViewModelPath );
 	}
 

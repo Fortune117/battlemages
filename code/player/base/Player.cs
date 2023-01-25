@@ -314,12 +314,12 @@ public partial class BasePlayer : AnimatedEntity
 	/// </summary>
 	public virtual void OnActiveChildChanged( Entity previous, Entity next )
 	{
-		if ( previous is BaseCarriable previousBc )
+		if ( previous is Carriable previousBc )
 		{
 			previousBc?.ActiveEnd( this, previousBc.Owner != this );
 		}
 
-		if ( next is BaseCarriable nextBc )
+		if ( next is Carriable nextBc )
 		{
 			nextBc?.ActiveStart( this );
 		}

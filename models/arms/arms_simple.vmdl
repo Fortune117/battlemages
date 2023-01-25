@@ -170,7 +170,7 @@
 						disable_compression = false
 						source_filename = "models/arms/arms_simple.fbx"
 						start_frame = -1
-						end_frame = -1
+						end_frame = 24
 						framerate = -1.0
 						take = 6
 						reverse = false

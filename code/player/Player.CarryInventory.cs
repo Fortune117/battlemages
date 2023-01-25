@@ -5,8 +5,8 @@ namespace BattleMages;
 
 public partial class Player
 {
-    public const int SLOT_RIFLE = 0;
-    public const int SLOT_SLING = 1;
+    public const int SLOT_PRIMARY = 0;
+    public const int SLOT_SECONDARY = 1;
     public const int SLOT_PISTOL = 2;
     public const int SLOT_MELEE = 3;
     public const int SLOT_UTIL = 4;
@@ -14,23 +14,23 @@ public partial class Player
     public const int SLOT_EMPTY = 9; //this slot is always, reliably, empty!
     public const int SLOT_GRENADE = 10;
     
-    [Net] private IDictionary<int,BaseCarriable> CarrySlots { get; set; } = new Dictionary<int, BaseCarriable>();
+    [Net] private IDictionary<int,Carriable> CarrySlots { get; set; } = new Dictionary<int, Carriable>();
     [Net, Predicted] private int ActiveSlot { get; set; } = SLOT_EMPTY;
     [Net, Predicted] private int PreviousSlot { get; set; } = SLOT_EMPTY;
     [Net, Predicted] private bool IsSwitchingSlot { get; set; } = false;
     [Net, Predicted] private int QueuedSlot { get; set; }
     [Net, Predicted] private TimeUntil TimeUntilSwitchFinished { get; set; } = 0;
 
-    private BaseCarriable ActiveCarry => GetActiveCarry();
+    private Carriable ActiveCarry => GetActiveCarry();
     
     
-    public BaseCarriable GetActiveCarry()
+    public Carriable GetActiveCarry()
     {
         CarrySlots.TryGetValue(ActiveSlot, out var active);
         return active;
     }
     
-    public BaseCarriable GetCarriableAtSlot(int slot)
+    public Carriable GetCarriableAtSlot(int slot)
     {
         CarrySlots.TryGetValue(slot, out var value);
         return value;
@@ -47,7 +47,7 @@ public partial class Player
         return true;
     }
 
-    public bool AddToSlot(BaseCarriable carriable, int slot, bool makeActive, bool fastActive = false)
+    public bool AddToSlot(Carriable carriable, int slot, bool makeActive, bool fastActive = false)
     {
         Game.AssertServer();
 
@@ -73,7 +73,7 @@ public partial class Player
         return true;
     }
 
-    public BaseCarriable DropActive()
+    public Carriable DropActive()
     {
         var active = GetActiveCarry();
         if (!active.IsValid())
@@ -118,15 +118,15 @@ public partial class Player
             return;
         }
         
-        if (GetCarriableAtSlot(SLOT_RIFLE).IsValid())
+        if (GetCarriableAtSlot(SLOT_PRIMARY).IsValid())
         {
-            SwitchToSlot(SLOT_RIFLE);
+            SwitchToSlot(SLOT_PRIMARY);
             return;
         }
 
-        if (GetCarriableAtSlot(SLOT_SLING).IsValid())
+        if (GetCarriableAtSlot(SLOT_SECONDARY).IsValid())
         {
-             SwitchToSlot(SLOT_SLING);
+             SwitchToSlot(SLOT_SECONDARY);
              return;
         }
         
@@ -207,5 +207,10 @@ public partial class Player
             if (Input.Pressed(InputButton.Slot6)) SwitchToSlot( 5 );
             if (Input.Pressed(InputButton.Slot7)) SwitchToSlot( 6 );
         }
+    }
+
+    public void AddStartingItems()
+    {
+        AddToSlot(new Powers(), SLOT_PRIMARY, false);
     }
 }
