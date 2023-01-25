@@ -9,7 +9,7 @@ public partial class WalkController
     public bool IsDucking { get; set; } // replicate
     
     private float duckFraction = 1;
-    private float activeFraction => 0.75f;
+    private float activeFraction => 0.5f;
 
     private float movingOffset => 0.12f;
     
