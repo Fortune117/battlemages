@@ -8,6 +8,7 @@ public static class BMTags
         public const string PowerType = "ePowerType";
         public const string StartUsingPower = "bStartUsingPower";
         public const string ReleasePower = "bReleasePower";
+        public const string IsUsingPower = "bIsUsingPower";
     }
     
     public static class PhysicsTags

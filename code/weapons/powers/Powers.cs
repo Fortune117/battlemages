@@ -13,7 +13,7 @@ public partial class Powers : Carriable
     [Net, Predicted]
     private TimeSince TimeSinceReleasedPower { get; set; }
     
-    private float MinimumPowerHoldTime => 0.2f;
+    private float MinimumPowerHoldTime => 0.1f;
     private float Cooldown => 0.25f;
     
     private Player Player => Owner as Player;
@@ -39,13 +39,14 @@ public partial class Powers : Carriable
     private void BeginUsingPower()
     {
         IsUsingPower = true;
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.StartUsingPower, true);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, true);
+        TimeSinceStartedUsingPower = 0;
     }
 
     private void ReleasePower()
     {
         IsUsingPower = false;
         TimeSinceReleasedPower = 0;
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.ReleasePower, true);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, false);
     }
 }
