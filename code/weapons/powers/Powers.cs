@@ -4,6 +4,9 @@ namespace BattleMages;
 
 public partial class Powers : Carriable
 {
+    [ConVar.Replicated]
+    public static bool bm_debug_powers { get; set; }
+    
     [Net, Predicted]
     public bool IsUsingPower { get; set; }
     
@@ -13,19 +16,41 @@ public partial class Powers : Carriable
     [Net, Predicted]
     private TimeSince TimeSinceReleasedPower { get; set; }
     
+    [Net, Predicted]
+    private bool CancelledInputReleased { get; set; }
+    
     private float MinimumPowerHoldTime => 0.1f;
-    private float Cooldown => 0.25f;
+    private float Cooldown => 0.5f;
     
     private Player Player => Owner as Player;
-
+    
+    
     public override string ViewModelPath => "models/arms/arms_simple.vmdl";
 
     public override void Simulate(IClient client)
     {
+        if (IsBlinking)
+        {
+            BlinkSimulate();
+            return;
+        }
+
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.MoveSpeed, Player.Velocity.Length);
 
-        var powerInput = Input.Down(InputButton.SecondaryAttack);
+        if (Input.Down(InputButton.Reload) && IsUsingPower)
+        {
+            CancelPower();
+            return;
+        }
         
+        var powerInput = Input.Down(InputButton.SecondaryAttack);
+
+        if (!powerInput && !CancelledInputReleased)
+            CancelledInputReleased = true;
+        
+        if (!CancelledInputReleased)
+            return;
+
         if (powerInput && !IsUsingPower && TimeSinceReleasedPower > Cooldown)
         {
             BeginUsingPower();   
@@ -39,14 +64,35 @@ public partial class Powers : Carriable
     private void BeginUsingPower()
     {
         IsUsingPower = true;
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, true);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
         TimeSinceStartedUsingPower = 0;
+
+        CreateTargetVFX();
     }
 
+    private void CancelPower()
+    {
+        CancelledInputReleased = false;
+        TimeSinceReleasedPower = 0;
+        IsUsingPower = false;
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
+        
+        BlinkTarget?.Destroy(true);
+        BlinkTarget = null;
+    }
+    
     private void ReleasePower()
     {
         IsUsingPower = false;
         TimeSinceReleasedPower = 0;
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, false);
+        
+        StartBlink();
     }
+
+    public override void FrameSimulate(IClient cl)
+    {
+        UpdateBlinkVFX();
+    }
+
 }

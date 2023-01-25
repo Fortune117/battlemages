@@ -138,7 +138,7 @@
 							{
 								m_id = 317540811
 							}
-							m_position = [ -16.0, -64.0 ]
+							m_position = [ -16.0, -176.0 ]
 							m_bIsStartState = false
 							m_bIsEndtState = false
 							m_bIsPassthrough = true
@@ -169,7 +169,7 @@
 							m_position = [ 176.0, -64.0 ]
 							m_bIsStartState = false
 							m_bIsEndtState = true
-							m_bIsPassthrough = false
+							m_bIsPassthrough = true
 							m_bIsRootMotionExclusive = false
 							m_bAlwaysEvaluate = false
 						},
@@ -253,7 +253,7 @@
 					]
 					m_seed = 1310473276
 					m_choiceMethod = "WeightedRandom"
-					m_choiceChangeMethod = "OnReset"
+					m_choiceChangeMethod = "OnCycleEnd"
 					m_blendMethod = "SingleBlendTime"
 					m_blendTime = 0.2
 					m_bCrossFade = false
@@ -405,7 +405,7 @@
 										{
 											_class = "CFinishedCondition"
 											m_comparisonOp = 0
-											m_option = "FinishedConditionOption_OnFinished"
+											m_option = "FinishedConditionOption_OnAlmostFinished"
 											m_bIsFinished = true
 										},
 									]
@@ -444,7 +444,7 @@
 							{
 								m_id = 253829589
 							}
-							m_position = [ 16.0, 0.0 ]
+							m_position = [ 32.0, 0.0 ]
 							m_bIsStartState = false
 							m_bIsEndtState = false
 							m_bIsPassthrough = false
