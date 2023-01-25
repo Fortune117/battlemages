@@ -32,18 +32,22 @@
 			]
 			JumpCooldown = 0.35
 			JumpLandingOffsetCurve = 
-			[
-				{
-					y = 1
-				},
-				{
-					x = 0.5
-				},
-				{
-					x = 1
-					y = 1
-				},
-			]
+			{
+				rangey = "-1,0"
+				frames = 
+				[
+					{
+						y = 1
+					},
+					{
+						x = 0.5
+					},
+					{
+						x = 1
+						y = 1
+					},
+				]
+			}
 			Acceleration = 7
 			AccelerationForwardProportionality = 1
 			AirAcceleration = 10
