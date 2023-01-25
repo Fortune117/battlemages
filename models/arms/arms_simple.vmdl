@@ -94,6 +94,39 @@
 					{
 						_class = "AnimFile"
 						name = "lh_blink_start"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_CREATE_PARTICLE_EFFECT"
+								event_frame = 1
+								event_keys = 
+								{
+									name = resource:"particles/powers/powers_hand_smoke.vpcf"
+									detach_from_owner = false
+									always_run = false
+									stop_on_seq_change = false
+									stop_immediately = false
+									use_layer_sequence = false
+									tags = ""
+									attachment_point = "left_hand_back"
+									attachment_type = "point_follow"
+									attachment_point_cp1 = ""
+									attachment_type_cp1 = "point_follow"
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_STOP_PARTICLE_EFFECT"
+								event_frame = 0
+								event_keys = 
+								{
+									name = resource:"particles/powers/powers_hand_smoke.vpcf"
+									stop_instantly = false
+									play_endcap = false
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -136,6 +169,20 @@
 					{
 						_class = "AnimFile"
 						name = "lh_blink_release"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_STOP_PARTICLE_EFFECT"
+								event_frame = 5
+								event_keys = 
+								{
+									name = resource:"particles/powers/powers_hand_smoke.vpcf"
+									stop_instantly = false
+									play_endcap = false
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -186,8 +233,8 @@
 						_class = "Attachment"
 						name = "left_hand_back"
 						parent_bone = "hand_L"
-						relative_origin = [ -3.233986, 5.562368, 0.0 ]
-						relative_angles = [ -0.0, 0.0, 0.0 ]
+						relative_origin = [ -1.179237, 6.650877, 1.089293 ]
+						relative_angles = [ -0.00113, 0.0, 0.00134 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
