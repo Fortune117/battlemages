@@ -12,8 +12,6 @@
 			RechargeDelay = 2
 			RechargeRate = 10
 			SecondWindDelay = 15
-			JumpCost = 10
-			SprintCost = 4
 		}
 		Movement = 
 		{
