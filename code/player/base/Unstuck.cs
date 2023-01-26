@@ -4,13 +4,13 @@ namespace BattleMages;
 
 public class Unstuck
 {
-	public BasePlayerController Controller;
+	public PawnController Controller;
 
 	public bool IsActive; // replicate
 
 	internal int StuckTries = 0;
 
-	public Unstuck( BasePlayerController controller )
+	public Unstuck( PawnController controller )
 	{
 		Controller = controller;
 	}

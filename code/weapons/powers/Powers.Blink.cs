@@ -37,27 +37,17 @@ public partial class Powers
 
     private TraceResult GetBlinkTrace()
     {
-        TraceResult tr;
-        
-        if (Game.IsClient)
-        {
-            tr = Trace.Ray(FortuneUtil.GetCameraRay(), BlinkRange)
-                .Ignore(Player)
-                .Radius(7f)
-                .WithoutTags(BMTags.PhysicsTags.Trigger)
-                .WorldAndEntities()
-                .Run();
-
-            if (bm_debug_powers)
-                DebugOverlay.TraceResult(tr, 0f);
+        var boxHeight = Player.Stats.Movement.BodyHeight / 6f;
             
-            return tr;
-        }
-        
-        
-        tr = Trace.Ray(Player.AimRay, BlinkRange)
+        var girth = Player.Stats.Movement.BodyGirth*0.25f;
+        var mins = new Vector3(-girth, -girth, -boxHeight) * Player.Scale;
+        var maxs = new Vector3(+girth, +girth, 0) * Player.Scale;
+
+        var ray = Game.IsClient ? FortuneUtil.GetCameraRay() : Player.AimRay;
+
+        var tr = Trace.Ray(ray, BlinkRange)
             .Ignore(Player)
-            .Radius(7f)
+            .Size(mins, maxs)
             .WithoutTags(BMTags.PhysicsTags.Trigger)
             .WorldAndEntities()
             .Run();
@@ -70,14 +60,21 @@ public partial class Powers
 
     private TraceResult GetDownTrace(TraceResult traceResult)
     {
-        var startPos = traceResult.EndPosition + traceResult.Normal * 10f;
+        var startPos = traceResult.EndPosition + traceResult.Normal * 8f;
+
+        var boxHeight = Player.Stats.Movement.BodyHeight / 10f;
+            
+        var girth = Player.Stats.Movement.BodyGirth*0.4f;
+        var mins = new Vector3(-girth, -girth, -boxHeight) * Player.Scale;
+        var maxs = new Vector3(+girth, +girth, 0) * Player.Scale;
         
         var tr = Trace.Ray(startPos, startPos + Vector3.Down * BlinkFallRange)
+            .Size(mins, maxs)
             .Ignore(Player)
             .WithoutTags(BMTags.PhysicsTags.Trigger)
             .WorldAndEntities()
             .Run();
-        
+
         if (bm_debug_powers)
             DebugOverlay.TraceResult(tr, 0f);
 
@@ -88,6 +85,30 @@ public partial class Powers
     {
         var tr = GetDownTrace(GetBlinkTrace());
         return tr.EndPosition + tr.Normal*2f;
+    }
+
+    private bool IsValidBlinkPosition(Vector3 position)
+    {
+        var playerHull = Player.Controller.GetHull();
+        
+        var tr = Trace.Ray(position, position)
+            .Size(playerHull)
+            .Ignore(Player)
+            .WithoutTags(BMTags.PhysicsTags.Trigger)
+            .WorldAndEntities()
+            .Run();
+
+        if (bm_debug_powers)
+        {
+            DebugOverlay.Box(position, Rotation.Identity, playerHull.Mins, playerHull.Maxs, Color.Orange);
+        
+            if (tr.Hit)
+            {
+                DebugOverlay.TraceResult(tr, 0f);
+            }
+        }
+        
+        return !tr.Hit;
     }
     
     private void UpdateBlinkVFX()
@@ -100,6 +121,9 @@ public partial class Powers
         var blinkTrace = GetBlinkTrace();
         BlinkTarget.SetPosition(0, blinkTrace.EndPosition + blinkTrace.Normal * 3f);
         BlinkTarget.SetPosition(1, GetDownTrace(blinkTrace).EndPosition);
+
+        var pos = GetBlinkFinalPosition();
+        IsValidBlinkPosition(pos);
     }
 
     private void BlinkStartSFX()
@@ -136,6 +160,14 @@ public partial class Powers
 
     private void ReleaseBlink()
     {
+        var finalPos = GetBlinkFinalPosition();
+
+        if (!IsValidBlinkPosition(finalPos))
+        {
+            CancelBlink();
+            return;
+        }
+        
         BlinkReleaseSFX();
         
         BlinkStartPosition = Player.Position;

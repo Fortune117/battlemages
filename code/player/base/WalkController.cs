@@ -3,7 +3,7 @@ using Sandbox;
 
 namespace BattleMages;
 
-public partial class WalkController : BasePlayerController
+public partial class WalkController : PawnController
 {
     public float SprintSpeed => Player.Stats.Movement.SprintSpeed;
     public float SprintForwardProportionality => Player.Stats.Movement.SprintForwardProportionality;
@@ -43,10 +43,6 @@ public partial class WalkController : BasePlayerController
     /// </summary>
     public override BBox GetHull()
     {
-        var girth = BodyGirth * 0.5f;
-        var mins = new Vector3(-girth, -girth, 0);
-        var maxs = new Vector3(+girth, +girth, BodyHeight);
-
         return new BBox(mins, maxs);
     }
 

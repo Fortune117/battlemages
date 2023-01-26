@@ -2,7 +2,7 @@
 
 namespace BattleMages;
 
-public class NoclipController : BasePlayerController
+public class NoclipController : PawnController
 {
 	public override void Simulate()
 	{
