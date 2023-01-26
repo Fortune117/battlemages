@@ -185,7 +185,7 @@ public partial class Powers
         BlinkReleaseSFX();
         
         BlinkStartPosition = Player.Position;
-        BlinkEndPosition = GetBlinkFinalPosition();
+        BlinkEndPosition = finalPos;
         IsBlinking = true;
         TimeUntilBlinkFinished = BlinkStartPosition.Distance(BlinkEndPosition) / BlinkSpeed;
         
