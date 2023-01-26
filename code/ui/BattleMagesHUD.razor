@@ -1,0 +1,21 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@attribute [StyleSheet( "/ui/BattleMagesHUD.scss" )]
+
+@namespace StalkerRP.UI
+@inherits RootPanel
+
+<root>
+    <ChatBox/>
+</root>
+
+@code
+{
+    public BattleMagesHUD()
+    {
+        Game.RootPanel = this;
+        
+      //AddChild<Scoreboard<ScoreboardEntry>>();
+    } 
+}
