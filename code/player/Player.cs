@@ -65,10 +65,6 @@ public partial class Player : BasePlayer
 
 		var damage = Stats.Health.Max * frac;
 
-		var shake = 80f * frac;
-		shake = shake.Clamp(20f, 80f);
-		Camera.AddShake(shake, 90f, -1f, 0.4f);
-
 		Sound.FromWorld("human.fall_damage", Position);
 		Sound.FromWorld("cloth.fall", Position);
         
