@@ -1,4 +1,5 @@
-﻿using Kryz.Tweening;
+﻿using System;
+using Kryz.Tweening;
 using Sandbox;
 using Sandbox.Effects;
 
@@ -13,10 +14,12 @@ public class BlinkPostProcessHook : ScreenEffects
     private float blinkFraction;
     private bool isBlinking;
     private bool isHoldingBlink;
-
+    private float warpFraction;
+    
     private float vignetteMax => 0.75f;
     private float chromaticAberrationMax => 3f;
     private float chromaticAberrationHold => 0.25f;
+
 
     public BlinkPostProcessHook()
     {
@@ -30,6 +33,7 @@ public class BlinkPostProcessHook : ScreenEffects
     {
         UpdateVignette();
         UpdateChromaticAberration();
+        UpdateWarp();
     }
 
     public void SetBlinkFraction(float n)
@@ -77,5 +81,46 @@ public class BlinkPostProcessHook : ScreenEffects
         {
             ChromaticAberration.Scale = ChromaticAberration.Scale.LerpTo(0f, Time.Delta * 5f);
         }
+    }
+
+    private float wavyFraction;
+    private void UpdateWarp()
+    {
+        if (isHoldingBlink)
+        {
+            warpFraction = warpFraction.LerpTo(0.5f, Time.Delta * 5f);
+            wavyFraction = warpFraction;
+        }
+        else if (isBlinking)
+        {
+            warpFraction = EasingFunctions.OutElastic(blinkFraction) * 1f;
+            wavyFraction = warpFraction;
+        }
+        else
+        {
+            warpFraction = warpFraction.LerpTo(0f, Time.Delta*3f);
+            wavyFraction = warpFraction * MathF.Sin(Time.Now*20f);
+        }
+    }
+
+    public override void OnStage(SceneCamera target, Stage renderStage)
+    {
+        base.OnStage(target, renderStage);
+        
+        if ( renderStage == Stage.AfterPostProcess )
+        {
+            RenderBlinkPP( target );
+        }
+    }
+
+    private RenderAttributes blinkRenderAttributes = new();
+    private void RenderBlinkPP(SceneCamera target)
+    {
+        blinkRenderAttributes.Set("blink.warp.fraction", wavyFraction);
+        blinkRenderAttributes.Set("blink.warp.texture", Texture.Load(FileSystem.Mounted,"materials/postprocessing/blink_warp.png"));
+        
+        Graphics.GrabFrameTexture("ColorBuffer", blinkRenderAttributes);
+        Graphics.GrabDepthTexture("DepthBuffer", blinkRenderAttributes);
+        Graphics.Blit(Material.Create("blink_pp", "shaders/postprocess/power_blink_pp.shader"), blinkRenderAttributes);
     }
 }

@@ -23,8 +23,7 @@ public partial class Powers : Carriable
     private float Cooldown => 0.5f;
     
     private Player Player => Owner as Player;
-    
-    
+
     public override string ViewModelPath => "models/arms/arms_simple.vmdl";
 
     public override void Simulate(IClient client)
