@@ -35,6 +35,15 @@ public partial class Powers
 
     private Sound blinkHoldSound;
 
+    /// <summary>
+    /// RGBA	0.0666667	0.5843137	0.7764706	1.000
+    /// </summary>
+    private Vector3 OrbValidColor => new Vector3(0.0666667f, 0.5843137f, 0.7764706f);
+    private Vector3 OrbInvalidColor => new Vector3(0.366667f, 0.011f, 0.011f);
+
+    private Vector3 LightValidColor => new Vector3(0.4196078f, 0.8156863f, 1.0000000f);
+    private Vector3 LightInvalidColor => new Vector3(0.8196078f, 0.2156863f, 0.200000f);
+
     private TraceResult GetBlinkTrace()
     {
         var boxHeight = Player.Stats.Movement.BodyHeight / 6f;
@@ -121,9 +130,13 @@ public partial class Powers
         var blinkTrace = GetBlinkTrace();
         BlinkTarget.SetPosition(0, blinkTrace.EndPosition + blinkTrace.Normal * 3f);
         BlinkTarget.SetPosition(1, GetDownTrace(blinkTrace).EndPosition);
-
+        
         var pos = GetBlinkFinalPosition();
-        IsValidBlinkPosition(pos);
+        var isValid = IsValidBlinkPosition(pos);
+        
+        BlinkTarget.Set("orb_color", isValid ? OrbValidColor : OrbInvalidColor);
+        BlinkTarget.Set("light_color", isValid ? LightValidColor : LightInvalidColor);
+        
     }
 
     private void BlinkStartSFX()

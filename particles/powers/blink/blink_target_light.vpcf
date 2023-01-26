@@ -2,6 +2,12 @@
 {
 	_class = "CParticleSystemDefinition"
 	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+		},
+	]
 	m_Emitters = 
 	[
 		{
@@ -71,8 +77,9 @@
 			_class = "C_OP_RenderStandardLight"
 			m_vecColorScale = 
 			{
-				m_nType = "PVEC_TYPE_LITERAL_COLOR"
+				m_nType = "PVEC_TYPE_NAMED_VALUE"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
+				m_NamedValue = "light_color"
 				m_LiteralColor = [ 107, 208, 255, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
@@ -84,6 +91,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -129,6 +137,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -174,6 +183,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -219,6 +229,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -360,12 +371,6 @@
 					m_vDomainMaxs = [ 0.0, 0.0 ]
 				}
 			}
-		},
-	]
-	m_controlPointConfigurations = 
-	[
-		{
-			m_name = "preview"
 		},
 	]
 }
