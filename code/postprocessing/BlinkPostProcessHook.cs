@@ -19,6 +19,7 @@ public class BlinkPostProcessHook : ScreenEffects
     private float vignetteMax => 0.75f;
     private float chromaticAberrationMax => 3f;
     private float chromaticAberrationHold => 0.25f;
+    private float warpTime;
 
 
     public BlinkPostProcessHook()
@@ -44,6 +45,10 @@ public class BlinkPostProcessHook : ScreenEffects
     public void SetBlinking(bool b)
     {
         isBlinking = b;
+
+        //lil hack so that we get a nice sin curve
+        if (!b)
+            warpTime = 0;
     }
 
     public void SetHoldingBlink(bool b)
@@ -98,8 +103,9 @@ public class BlinkPostProcessHook : ScreenEffects
         }
         else
         {
-            warpFraction = warpFraction.LerpTo(0f, Time.Delta*4f);
-            wavyFraction = warpFraction * MathF.Sin(Time.Now*40f);
+            warpFraction = warpFraction.LerpTo(0f, Time.Delta*5f);
+            warpTime += Time.Delta;
+            wavyFraction = warpFraction * MathF.Sin(warpTime*40f);
         }
     }
 
