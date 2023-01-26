@@ -98,8 +98,8 @@ public class BlinkPostProcessHook : ScreenEffects
         }
         else
         {
-            warpFraction = warpFraction.LerpTo(0f, Time.Delta*3f);
-            wavyFraction = warpFraction * MathF.Sin(Time.Now*20f);
+            warpFraction = warpFraction.LerpTo(0f, Time.Delta*4f);
+            wavyFraction = warpFraction * MathF.Sin(Time.Now*40f);
         }
     }
 
