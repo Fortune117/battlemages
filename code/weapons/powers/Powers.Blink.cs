@@ -69,13 +69,14 @@ public partial class Powers
 
     private TraceResult GetDownTrace(TraceResult traceResult)
     {
-        var startPos = traceResult.EndPosition + traceResult.Normal * 8f;
+        var startPos = traceResult.EndPosition + traceResult.Normal * 10f;
 
         var boxHeight = Player.Stats.Movement.BodyHeight / 10f;
-            
+
+        var playerHull = Player.Controller.GetHull();
         var girth = Player.Stats.Movement.BodyGirth*0.4f;
-        var mins = new Vector3(-girth, -girth, -boxHeight) * Player.Scale;
-        var maxs = new Vector3(+girth, +girth, 0) * Player.Scale;
+        var mins = playerHull.Mins.WithZ(-boxHeight) * Player.Scale;
+        var maxs = playerHull.Maxs.WithZ(0) * Player.Scale;
         
         var tr = Trace.Ray(startPos, startPos + Vector3.Down * BlinkFallRange)
             .Size(mins, maxs)
@@ -128,7 +129,7 @@ public partial class Powers
             return;
 
         var blinkTrace = GetBlinkTrace();
-        BlinkTarget.SetPosition(0, blinkTrace.EndPosition + blinkTrace.Normal * 3f);
+        BlinkTarget.SetPosition(0, blinkTrace.EndPosition + blinkTrace.Normal * 10f);
         BlinkTarget.SetPosition(1, GetDownTrace(blinkTrace).EndPosition);
         
         var pos = GetBlinkFinalPosition();
