@@ -123,7 +123,7 @@ public class BlinkPostProcessHook : ScreenEffects
     private void RenderBlinkPP(SceneCamera target)
     {
         blinkRenderAttributes.Set("blink.warp.fraction", wavyFraction);
-        blinkRenderAttributes.Set("blink.warp.texture", Texture.Load(FileSystem.Mounted,"materials/postprocessing/blink_warp.png"));
+        blinkRenderAttributes.Set("blink.warp.texture", Texture.Load(FileSystem.Mounted,"textures/postprocessing/blink_warp.png"));
         
         Graphics.GrabFrameTexture("ColorBuffer", blinkRenderAttributes);
         Graphics.GrabDepthTexture("DepthBuffer", blinkRenderAttributes);

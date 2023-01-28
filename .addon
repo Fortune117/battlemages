@@ -7,7 +7,9 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": [],
+  "ResourcePaths": [
+    "/textures/*"
+  ],
   "HasCode": true,
   "CodePath": "/code/",
   "Metadata": {
