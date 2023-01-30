@@ -15,7 +15,7 @@ public class ViewModel : BaseViewModel
 
 	private bool activated = false;
 
-	private bool EnableSwingAndBob => true;
+	private bool EnableSwingAndBob => false;
 
 	private float YawInertia { get; set; }
 	private float PitchInertia { get; set; }
