@@ -67,7 +67,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 7
+						take = 0
 						reverse = false
 					},
 					{
@@ -87,6 +87,69 @@
 						source_filename = "models/longsword/longsword_vm.fbx"
 						start_frame = -1
 						end_frame = 40
+						framerate = -1.0
+						take = 5
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "sprint_start"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 4
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "sprint_loop"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = 24
+						framerate = -1.0
+						take = 3
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "sprint_end"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = 30
 						framerate = -1.0
 						take = 2
 						reverse = false
