@@ -411,7 +411,7 @@
 											m_bIsFinished = true
 										},
 									]
-									m_blendDuration = 0.2
+									m_blendDuration = 0.6
 									m_destState = 
 									{
 										m_id = 1682686206
@@ -467,7 +467,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -208.0, 368.0 ]
+					m_vecPosition = [ -224.0, 320.0 ]
 					m_nNodeID = 
 					{
 						m_id = 743000988
@@ -848,6 +848,28 @@
 			{
 				key = 
 				{
+					m_id = 1420802548
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -272.0, 416.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1420802548
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "swing_top_R_to_L"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1558377483
 				}
 				value = 
@@ -888,7 +910,7 @@
 						{
 							m_nodeID = 
 							{
-								m_id = 743000988
+								m_id = 1420802548
 							}
 							m_outputID = 
 							{
