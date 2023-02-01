@@ -9,6 +9,9 @@ public partial class MageSword : Carriable
     public bool IsCasting { get; set; }
     
     [Net, Predicted]
+    private bool IsAttacking { get; set; }
+    
+    [Net, Predicted]
     private TimeSince TimeSinceStartedUsingPower { get; set; }
     
     [Net, Predicted]
@@ -16,7 +19,7 @@ public partial class MageSword : Carriable
     
     [Net, Predicted]
     private bool CancelledSpellInputReleased { get; set; }
-    
+
     [Net, Predicted]
     private BaseSpell ActiveSpell { get; set; }
 
@@ -40,12 +43,20 @@ public partial class MageSword : Carriable
         ActiveSpell = BlinkSpell;
     }
 
-    public override void OnCarryStart(Entity carrier)
+    public override void Simulate(IClient client)
     {
-        base.OnCarryStart(carrier);
+        SimulateAttacking(client);
+        
+        if (!IsAttacking)
+            SimulateCasting(client);
     }
 
-    public override void Simulate(IClient client)
+    private void SimulateAttacking(IClient client)
+    {
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, Input.Pressed(InputButton.PrimaryAttack));
+    }
+
+    private void SimulateCasting(IClient client)
     {
         if (ActiveSpell is null)
             return;

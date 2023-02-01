@@ -37,7 +37,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -464.0, 288.0 ]
+					m_vecPosition = [ -448.0, 112.0 ]
 					m_nNodeID = 
 					{
 						m_id = 360385033
@@ -59,7 +59,7 @@
 				{
 					_class = "CRootAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 800.0, -48.0 ]
+					m_vecPosition = [ 1168.0, -48.0 ]
 					m_nNodeID = 
 					{
 						m_id = 433019833
@@ -231,7 +231,7 @@
 				value = 
 				{
 					_class = "CStateMachineAnimNode"
-					m_sName = "Casting"
+					m_sName = "Actions"
 					m_vecPosition = [ 464.0, -48.0 ]
 					m_nNodeID = 
 					{
@@ -279,10 +279,44 @@
 									m_bForceFootPlant = false
 									m_bDisabled = false
 								},
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CParameterAnimCondition"
+											m_comparisonOp = 0
+											m_paramID = 
+											{
+												m_id = 421244414
+											}
+											m_comparisonValue = 
+											{
+												m_nType = 1
+												m_data = true
+											}
+										},
+									]
+									m_blendDuration = 0.2
+									m_destState = 
+									{
+										m_id = 42610871
+									}
+									m_bReset = true
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.5, 0.0 ]
+										m_vControlPoint2 = [ 0.5, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+								},
 							]
 							m_tags = [  ]
 							m_tagBehaviors = [  ]
-							m_name = "No Cast"
+							m_name = "No Action"
 							m_inputConnection = 
 							{
 								m_nodeID = 
@@ -362,9 +396,88 @@
 							m_bIsRootMotionExclusive = false
 							m_bAlwaysEvaluate = false
 						},
+						{
+							_class = "CAnimState"
+							m_transitions = 
+							[
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CFinishedCondition"
+											m_comparisonOp = 0
+											m_option = "FinishedConditionOption_OnAlmostFinished"
+											m_bIsFinished = true
+										},
+									]
+									m_blendDuration = 0.2
+									m_destState = 
+									{
+										m_id = 1682686206
+									}
+									m_bReset = true
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.5, 0.0 ]
+										m_vControlPoint2 = [ 0.5, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+								},
+							]
+							m_tags = [  ]
+							m_tagBehaviors = [  ]
+							m_name = "Attacking"
+							m_inputConnection = 
+							{
+								m_nodeID = 
+								{
+									m_id = 1564295133
+								}
+								m_outputID = 
+								{
+									m_id = 4294967295
+								}
+							}
+							m_stateID = 
+							{
+								m_id = 42610871
+							}
+							m_position = [ 16.0, 192.0 ]
+							m_bIsStartState = false
+							m_bIsEndtState = false
+							m_bIsPassthrough = false
+							m_bIsRootMotionExclusive = false
+							m_bAlwaysEvaluate = false
+						},
 					]
 					m_bBlockWaningTags = false
 					m_bLockStateWhenWaning = false
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 743000988
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -208.0, 368.0 ]
+					m_nNodeID = 
+					{
+						m_id = 743000988
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "swing_R_to_L"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
 				}
 			},
 			{
@@ -376,7 +489,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -464.0, 384.0 ]
+					m_vecPosition = [ -448.0, 208.0 ]
 					m_nNodeID = 
 					{
 						m_id = 753937218
@@ -420,7 +533,7 @@
 				{
 					_class = "CStateMachineAnimNode"
 					m_sName = "Blink"
-					m_vecPosition = [ -160.0, 304.0 ]
+					m_vecPosition = [ -144.0, 128.0 ]
 					m_nNodeID = 
 					{
 						m_id = 928480432
@@ -757,13 +870,81 @@
 			{
 				key = 
 				{
+					m_id = 1564295133
+				}
+				value = 
+				{
+					_class = "CSelectorAnimNode"
+					m_sName = "Attack Selector"
+					m_vecPosition = [ 208.0, 320.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1564295133
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_children = 
+					[
+						{
+							m_nodeID = 
+							{
+								m_id = 743000988
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
+						{
+							m_nodeID = 
+							{
+								m_id = 4294967295
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
+					]
+					m_tags = 
+					[
+						{
+							m_id = 4294967295
+						},
+						{
+							m_id = 4294967295
+						},
+					]
+					m_selectionSource = "SelectionSource_Enum"
+					m_boolParamID = 
+					{
+						m_id = 4294967295
+					}
+					m_enumParamID = 
+					{
+						m_id = 107779303
+					}
+					m_blendDuration = 0.2
+					m_tagBehavior = "SelectorTagBehavior_OffWhenFinished"
+					m_bResetOnChange = true
+					m_bSyncCyclesOnChange = false
+					m_blendCurve = 
+					{
+						m_vControlPoint1 = [ 0.5, 0.0 ]
+						m_vControlPoint2 = [ 0.5, 1.0 ]
+					}
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1641023575
 				}
 				value = 
 				{
 					_class = "CSelectorAnimNode"
 					m_sName = "Spell Selector"
-					m_vecPosition = [ 208.0, 304.0 ]
+					m_vecPosition = [ 224.0, 128.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1641023575
@@ -818,7 +999,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -464.0, 336.0 ]
+					m_vecPosition = [ -448.0, 160.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1999279321
@@ -1115,6 +1296,39 @@
 				m_id = 
 				{
 					m_id = 1237211490
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bNetwork = false
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bPredicted = false
+				m_bDefaultValue = false
+			},
+			{
+				_class = "CEnumAnimParameter"
+				m_name = "eAttackType"
+				m_id = 
+				{
+					m_id = 107779303
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bNetwork = true
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bPredicted = false
+				m_defaultValue = 0
+				m_enumOptions = 
+				[
+					"Right To Left",
+					"Lef To Right",
+				]
+			},
+			{
+				_class = "CBoolAnimParameter"
+				m_name = "bIsAttacking"
+				m_id = 
+				{
+					m_id = 421244414
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
 				m_bNetwork = false

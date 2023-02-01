@@ -40,7 +40,10 @@
 						import_filter = 
 						{
 							exclude_by_default = false
-							exception_list = [  ]
+							exception_list = 
+							[
+								"cube_shape_1",
+							]
 						}
 					},
 				]
@@ -88,7 +91,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 8
+						take = 9
 						reverse = false
 					},
 					{
@@ -215,6 +218,27 @@
 						end_frame = -1
 						framerate = -1.0
 						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swing_R_to_L"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 8
 						reverse = false
 					},
 				]

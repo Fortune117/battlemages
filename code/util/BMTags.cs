@@ -10,6 +10,7 @@ public static class BMTags
         public const string ReleasePower = "bReleasePower";
         public const string IsCasting = "bIsCasting";
         public const string IsRunning = "bIsRunning";
+        public const string IsAttacking = "bIsAttacking";
     }
     
     public static class PhysicsTags
