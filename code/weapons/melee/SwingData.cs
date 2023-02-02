@@ -16,10 +16,10 @@ public class SwingData : GameResource
 {
     public bool IsStab { get; set; }
     public SwingType SwingType { get; set; }
-    public Rotation StartRotation { get; set; }
+    public Angles StartAngles { get; set; }
     
     [HideIf(nameof(IsStab), true)]
-    public Rotation EndRotation { get; set; }
+    public Angles EndAngles { get; set; }
     
     public float WindUpTime { get; set; }
     public float ActiveTime { get; set; }

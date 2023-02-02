@@ -2,11 +2,11 @@
 {
 	data = 
 	{
-		IsStab = false
-		SwingType = "RightToLeft"
-		StartRotation = "0,0,0,0"
-		EndRotation = "0,0,0,0"
-		WindUpTime = 0
-		ActiveTime = 0
+		IsStab = true
+		SwingType = "Stab"
+		StartAngles = "0,0,0"
+		EndAngles = "0,0,0"
+		WindUpTime = 0.5
+		ActiveTime = 0.15
 	}
 }

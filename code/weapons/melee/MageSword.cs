@@ -7,10 +7,7 @@ public partial class MageSword : Carriable
 {
     [Net, Predicted]
     public bool IsCasting { get; set; }
-    
-    [Net, Predicted]
-    private bool IsAttacking { get; set; }
-    
+
     [Net, Predicted]
     private TimeSince TimeSinceStartedUsingPower { get; set; }
     
@@ -39,6 +36,8 @@ public partial class MageSword : Carriable
     {
         base.Spawn();
 
+        SetModel("models/longsword/longsword_wm.vmdl");
+        
         BlinkSpell = new Blink(this);
         ActiveSpell = BlinkSpell;
     }
@@ -50,27 +49,7 @@ public partial class MageSword : Carriable
         if (!IsAttacking)
             SimulateCasting(client);
     }
-
-    private void SimulateAttacking(IClient client)
-    {
-        if (Input.MouseWheel > 0)
-        {
-            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.SwingType, (int)SwingType.Stab);
-            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, true);
-            return;
-        }
-        
-        if (Input.Pressed(InputButton.PrimaryAttack))
-        {
-            var swingType = GetSwingType(Player.MeleeInputAngle);
-            
-            Log.Info($"Chosen Type: {swingType}");
-            Log.Info(Player.MeleeInputAngle);
-            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.SwingType, (int)swingType);
-        }
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, Input.Pressed(InputButton.PrimaryAttack));
-    }
-
+    
     private void SimulateCasting(IClient client)
     {
         if (ActiveSpell is null)

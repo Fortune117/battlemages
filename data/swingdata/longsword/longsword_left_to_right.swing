@@ -4,9 +4,9 @@
 	{
 		IsStab = false
 		SwingType = "LeftToRight"
-		StartRotation = "0,0,0,1"
-		EndRotation = "0,0,0,1"
-		WindUpTime = 0
-		ActiveTime = 0
+		StartAngles = "0,90,0"
+		EndAngles = "0,270,0"
+		WindUpTime = 0.5
+		ActiveTime = 0.3
 	}
 }
