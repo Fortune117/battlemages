@@ -129,7 +129,7 @@ public partial class MageSword : Carriable
     
     public override void SimulateAnimator( PawnAnimator anim )
     {
-        anim.SetAnimParameter( "holdtype", 3 );
+        anim.SetAnimParameter( "holdtype", 2 );
         anim.SetAnimParameter( "b_blink", IsCasting );
         anim.SetAnimParameter( "aim_body_weight", 1.0f );
         anim.SetAnimParameter( "holdtype_handedness", 0 );

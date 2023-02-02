@@ -483,6 +483,28 @@
 			{
 				key = 
 				{
+					m_id = 745181376
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -224.0, 464.0 ]
+					m_nNodeID = 
+					{
+						m_id = 745181376
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "swing_top_L_to_R"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 753937218
 				}
 				value = 
@@ -826,6 +848,28 @@
 			{
 				key = 
 				{
+					m_id = 1252241763
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -224.0, 416.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1252241763
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "swing_L_to_R"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1413278458
 				}
 				value = 
@@ -854,7 +898,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -272.0, 416.0 ]
+					m_vecPosition = [ -240.0, 368.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1420802548
@@ -910,7 +954,7 @@
 						{
 							m_nodeID = 
 							{
-								m_id = 1420802548
+								m_id = 745181376
 							}
 							m_outputID = 
 							{
