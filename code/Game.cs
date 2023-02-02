@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using StalkerRP.UI;
+using BattleMages.UI;
 
 //
 // You don't need to put things in a namespace, but it doesn't hurt.
