@@ -118,8 +118,16 @@ public partial class MageSword
     private bool shouldDoDamageTrace = false;
     private void SimulateSwing(IClient client)
     {
+        var oldAttackActive = AttackActive;
+        
         AttackActive = TimeSinceSwingStarted > ActiveSwing.WindUpTime;
 
+        if (AttackActive && !oldAttackActive)
+        {
+            if (!string.IsNullOrWhiteSpace(ActiveSwing.Sound))
+                Sound.FromEntity(ActiveSwing.Sound, Player);
+        }
+        
         if (!AttackActive)
             return;
 

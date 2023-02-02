@@ -8,5 +8,6 @@
 		EndAngles = "70,30,0"
 		WindUpTime = 0.5
 		ActiveTime = 0.3
+		Sound = resource:"data/sounds/weapons/sword.swing.sound"
 	}
 }

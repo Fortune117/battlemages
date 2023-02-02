@@ -23,4 +23,7 @@ public class SwingData : GameResource
     
     public float WindUpTime { get; set; }
     public float ActiveTime { get; set; }
+    
+    [ResourceType("sound")]
+    public string Sound { get; set; }
 }
