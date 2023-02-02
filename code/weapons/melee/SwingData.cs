@@ -1,4 +1,6 @@
-﻿namespace BattleMages.Melee;
+﻿using Sandbox;
+
+namespace BattleMages.Melee;
 
 public enum SwingType
 {
@@ -9,11 +11,16 @@ public enum SwingType
     Stab = 4
 }
 
-public struct SwingData
+[GameResource("Swing Data", "swing", "Contains stats for a melee swing.")]
+public class SwingData : GameResource
 {
-    public SwingType SwingType;
-    public Rotation StartRotation;
-    public Rotation EndRotation;
-    public float WindUpTime;
-    public float ActiveTime;
+    public bool IsStab { get; set; }
+    public SwingType SwingType { get; set; }
+    public Rotation StartRotation { get; set; }
+    
+    [HideIf(nameof(IsStab), true)]
+    public Rotation EndRotation { get; set; }
+    
+    public float WindUpTime { get; set; }
+    public float ActiveTime { get; set; }
 }
