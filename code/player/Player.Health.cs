@@ -28,16 +28,16 @@ partial class Player
         {
             Deafen( To.Single( this ), info.Damage.LerpInverse( 0, 600 ) );
         }
+
+        Health -= info.Damage;
         
         if (Health < 0)
             OnKilled();
         
         if (LifeState != LifeState.Alive)
             return;
-
-        //
+        
         // Add a score to the killer
-        //
         if ( LifeState == LifeState.Dead && info.Attacker != null )
         {
             if ( info.Attacker.Client != null && info.Attacker != this )

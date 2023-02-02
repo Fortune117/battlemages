@@ -39,6 +39,8 @@ public partial class MageSword
     private SwingData Stab =
         ResourceLibrary.Get<SwingData>("data/swingdata/longsword/longsword_stab.swing");
 
+    private readonly HashSet<Entity> swingHitEntities = new();
+
     /// <summary>
     /// This uses the angle determined by the players melee input angle and then snaps the swing to
     /// the closest value in the dictionary.
@@ -105,6 +107,8 @@ public partial class MageSword
         
         Log.Info($"Chosen Type: {swingData}");
         Log.Info(Player.MeleeInputAngle);
+        
+        swingHitEntities.Clear();
     }
 
     private void SimulateSwing(IClient client)
@@ -135,9 +139,25 @@ public partial class MageSword
             .Run();
         
         DebugOverlay.TraceResult(tr, 3f);
+
+        if (tr.Entity is not null)
+        {
+            TryHitEntity(tr, tr.Entity);
+        }
         
         if (TimeSinceSwingStarted > ActiveSwing.WindUpTime + ActiveSwing.ActiveTime)
             FinishSwing();
+    }
+
+    private void TryHitEntity(TraceResult swingTrace, Entity entity)
+    {
+        if (swingHitEntities.Contains(entity))
+            return;
+
+        if (Game.IsServer)
+            entity.TakeDamage(DamageInfo.Generic(Damage));
+
+        swingHitEntities.Add(entity);
     }
 
     private void FinishSwing()
