@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
@@ -109,8 +110,12 @@ public partial class MageSword
         Log.Info(Player.MeleeInputAngle);
         
         swingHitEntities.Clear();
+        oldTraceOrigins = new Vector3[TraceDensity];
+        shouldDoDamageTrace = false;
     }
 
+    private Vector3[] oldTraceOrigins;
+    private bool shouldDoDamageTrace = false;
     private void SimulateSwing(IClient client)
     {
         AttackActive = TimeSinceSwingStarted > ActiveSwing.WindUpTime;
@@ -130,21 +135,35 @@ public partial class MageSword
         var swingForward = (Player.ViewAngles + swingRotation.Angles()).Forward;
         
         var swingRay = new Ray(swingStartPos,swingForward);
-        
-        var tr = Trace.Ray(swingRay, WeaponLength)
-            .Ignore(Player)
-            .Ignore(this)
-            .WithoutTags(BMTags.PhysicsTags.Trigger)
-            .WorldAndEntities()
-            .Run();
-        
-        DebugOverlay.TraceResult(tr, 3f);
 
-        if (tr.Entity is not null)
+        for (var i = 0; i < TraceDensity; i++)
         {
-            TryHitEntity(tr, tr.Entity);
+            var distance = (WeaponLength / TraceDensity) * i;
+            var origin = swingStartPos + swingForward * distance;
+            
+            if (shouldDoDamageTrace)
+            {
+                var direction = (origin - oldTraceOrigins[i]);
+                var tr = Trace.Ray(origin, origin + direction)
+                    .Ignore(Player)
+                    .Ignore(this)
+                    .WithoutTags(BMTags.PhysicsTags.Trigger)
+                    .WorldAndEntities()
+                    .Run();
+            
+                DebugOverlay.TraceResult(tr, 3f);
+
+                if (tr.Entity is not null)
+                {
+                    TryHitEntity(tr, tr.Entity);
+                }
+            }
+            
+            oldTraceOrigins[i] = origin;
         }
-        
+
+        shouldDoDamageTrace = true;
+
         if (TimeSinceSwingStarted > ActiveSwing.WindUpTime + ActiveSwing.ActiveTime)
             FinishSwing();
     }
