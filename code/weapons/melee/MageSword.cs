@@ -53,6 +53,21 @@ public partial class MageSword : Carriable
 
     private void SimulateAttacking(IClient client)
     {
+        if (Input.Pressed(InputButton.SlotNext))
+        {
+            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.SwingType, (int)SwingType.Stab);
+            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, Input.Pressed(InputButton.SlotNext));
+            return;
+        }
+        
+        if (Input.Pressed(InputButton.PrimaryAttack))
+        {
+            var swingType = GetSwingType(Player.MeleeInputAngle);
+            
+            Log.Info($"Chosen Type: {swingType}");
+            Log.Info(Player.MeleeInputAngle);
+            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.SwingType, (int)swingType);
+        }
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, Input.Pressed(InputButton.PrimaryAttack));
     }
 

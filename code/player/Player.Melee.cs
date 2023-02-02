@@ -14,11 +14,9 @@ public partial class Player
         if (Input.AnalogLook.IsNearlyZero(0.05f))
             return;
         
-        var deltaAngle = (ViewAngles - OriginalViewAngles).Normal;
-        var angle = MathF.Atan2(-Input.AnalogLook.pitch, Input.AnalogLook.yaw).RadianToDegree();
-
-        //Log.Info(angle);
-        
+        var angle = MathF.Atan2(-Input.AnalogLook.pitch, Input.AnalogLook.yaw).RadianToDegree().NormalizeDegrees();
         Crosshair.SetCrosshairCompassRotation(angle);
+
+        MeleeInputAngle = angle;
     }
 }

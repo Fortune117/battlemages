@@ -11,6 +11,7 @@ public static class BMTags
         public const string IsCasting = "bIsCasting";
         public const string IsRunning = "bIsRunning";
         public const string IsAttacking = "bIsAttacking";
+        public const string SwingType = "eSwingType";
     }
     
     public static class PhysicsTags

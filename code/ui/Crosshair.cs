@@ -10,10 +10,7 @@ public partial class Crosshair : Panel
 	public static Crosshair Instance;
 	
 	private Panel Compass { get; set; }
-	
 	private float CompassRotation { get; set; }
-	
-	private float RenderCompassRotation { get; set; }
 
 	public Crosshair()
 	{
@@ -31,11 +28,6 @@ public partial class Crosshair : Panel
 	public override void Tick()
 	{
 		CompassRotation = CompassRotation.NormalizeDegrees();
-		RenderCompassRotation = RenderCompassRotation.NormalizeDegrees();
-
-		RenderCompassRotation = lerp_angle(RenderCompassRotation, CompassRotation, Time.Delta * 50f);
-		
-		Log.Info(RenderCompassRotation);
 		
 		var pt = new PanelTransform();
 
@@ -45,18 +37,4 @@ public partial class Crosshair : Panel
 
 		Compass.Style.Transform = pt;
 	}
-
-	private float lerp_angle(float from, float to, float weight)
-	{
-		return from + short_angle_dist(from, to) * weight;
-	}
-
-
-	private float short_angle_dist(float from, float to)
-	{
-		var max_angle = (MathF.PI * 2f).RadianToDegree();
-		var difference = (to - from) % max_angle;
-		return ((2 * difference) % max_angle) - difference;
-	}
-
 }
