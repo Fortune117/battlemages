@@ -53,10 +53,11 @@ public partial class MageSword : Carriable
 
     private void SimulateAttacking(IClient client)
     {
-        if (Input.Pressed(InputButton.SlotNext))
+        Log.Info(Input.MouseWheel);
+        if (Input.MouseWheel > 0)
         {
             ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.SwingType, (int)SwingType.Stab);
-            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, Input.Pressed(InputButton.SlotNext));
+            ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, true);
             return;
         }
         
