@@ -53,8 +53,8 @@ public class StandardPlayerAnimator : PawnAnimator
 		SetLookAt( "aim_head", lookPos );
 		SetLookAt( "aim_body", aimPos );
 
-		if ( HasTag( "ducked" ) ) duck = duck.LerpTo( 1.0f, Time.Delta * 3.5f );
-		else duck = duck.LerpTo( 0.0f, Time.Delta * 3.5f );
+		if ( HasTag( "ducked" ) ) duck = duck.LerpTo( 1.0f, Time.Delta * player.Stats.Movement.CrouchChangeSpeed );
+		else duck = duck.LerpTo( 0.0f, Time.Delta * player.Stats.Movement.CrouchChangeSpeed );
 
 		SetAnimParameter( "duck", duck );
 

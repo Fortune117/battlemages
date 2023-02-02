@@ -27,14 +27,14 @@ public partial class WalkController
     	if ( IsDucking )
     	{
     		SetTag( "ducked" );
-    		duckFraction = duckFraction.LerpTo(activeFraction, Time.Delta * 3.5f);
+    		duckFraction = duckFraction.LerpTo(activeFraction, Time.Delta * Player.Stats.Movement.CrouchChangeSpeed);
             var offset = Player.Velocity.Length.LerpInverse(0, Player.Stats.Movement.CrouchSpeed) * movingOffset;
             EyeLocalPosition *= duckFraction + offset;
     	}
     	else
     	{
 	        var offset = Player.Velocity.Length.LerpInverse(0, Player.Stats.Movement.CrouchSpeed) * movingOffset;
-    		duckFraction = duckFraction.LerpTo(1, Time.Delta * 3.5f);
+    		duckFraction = duckFraction.LerpTo(1, Time.Delta * Player.Stats.Movement.CrouchChangeSpeed);
             EyeLocalPosition *= (duckFraction + offset).Clamp(0, 1);
     	}
     }

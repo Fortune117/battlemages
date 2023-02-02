@@ -243,7 +243,7 @@ public partial class Player : BasePlayer
 		return true;
 	}
 	
-	[ConCmd.Server("stalker_toggle_view")]
+	[ConCmd.Server("bm_toggle_view")]
 	private static void ChangeView()
 	{
 		if (ConsoleSystem.Caller.Pawn is not Player player)
