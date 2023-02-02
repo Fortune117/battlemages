@@ -82,9 +82,7 @@ public partial class Player : BasePlayer
 		Tags.Add(BMTags.PhysicsTags.Player);
 		
 		Components.Create<HeadMovementComponent>();
-		
-		Health = Stats.Health.Max;
-		
+
 		SurroundingBoundsMode = SurroundingBoundsType.Hitboxes;
 
 		base.Spawn();
@@ -94,6 +92,9 @@ public partial class Player : BasePlayer
 	public override void Respawn()
 	{
 		base.Respawn();
+		
+		Health = Stats.Health.Max;
+		LifeState = LifeState.Alive;
 		
 		InSights = false;
 		hasGibbed = false;

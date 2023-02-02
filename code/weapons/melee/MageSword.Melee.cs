@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BattleMages;
+namespace BattleMages.Melee;
 
 public partial class MageSword
 {
-    private enum SwingType
-    {
-        RightToLeft = 0,
-        TopRightToLeft = 1,
-        LeftToRight = 2,
-        TopLeftToRight = 3,
-        Stab = 4
-    }
-
+    private float Damage => 60f;
+    
     /// <summary>
     /// This uses the angle determined by the players melee input angle and then snaps the swing to
     /// the closest value in the dictionary.

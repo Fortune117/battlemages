@@ -1,7 +1,7 @@
 ﻿using BattleMages.Spells;
 using Sandbox;
 
-namespace BattleMages;
+namespace BattleMages.Melee;
 
 public partial class MageSword : Carriable
 {
