@@ -275,4 +275,39 @@ public partial class Player : BasePlayer
 		
 		base.FrameSimulate(cl);
 	}
+	
+	/// <summary>
+	/// Called from the gamemode, clientside only.
+	/// </summary>
+	public override void BuildInput()
+	{
+		OriginalViewAngles = ViewAngles;
+		InputDirection = Input.AnalogMove;
+
+		if ( Input.StopProcessing )
+			return;
+
+		var look = Input.AnalogLook;
+
+		if ( ViewAngles.pitch > 90f || ViewAngles.pitch < -90f )
+		{
+			look = look.WithYaw( look.yaw * -1f );
+		}
+
+		var viewAngles = ViewAngles;
+		viewAngles += look;
+		viewAngles.pitch = viewAngles.pitch.Clamp( -89f, 89f );
+		viewAngles.roll = 0f;
+		ViewAngles = viewAngles.Normal;
+
+		MeleeInput();
+		ActiveChild?.BuildInput();
+
+		GetActiveController()?.BuildInput();
+
+		if ( Input.StopProcessing )
+			return;
+
+		GetActiveAnimator()?.BuildInput();
+	}
 }

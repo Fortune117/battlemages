@@ -40,7 +40,7 @@ public partial class BasePlayer : AnimatedEntity
 	[ClientInput] public Vector3 InputDirection { get; protected set; }
 	[ClientInput] public Entity ActiveChildInput { get; set; }
 	[ClientInput] public Angles ViewAngles { get; set; }
-	public Angles OriginalViewAngles { get; private set; }
+	public Angles OriginalViewAngles { get; set; }
 
 	public IBaseInventory Inventory { get; protected set; }
 
@@ -182,40 +182,6 @@ public partial class BasePlayer : AnimatedEntity
 		// TODO - investigate this? if we don't set movetype then the lerp is too much. Can we control lerp amount?
 		// if so we should expose that instead, that would be awesome.
 		EnableHitboxes = true;
-	}
-	
-	/// <summary>
-	/// Called from the gamemode, clientside only.
-	/// </summary>
-	public override void BuildInput()
-	{
-		OriginalViewAngles = ViewAngles;
-		InputDirection = Input.AnalogMove;
-
-		if ( Input.StopProcessing )
-			return;
-
-		var look = Input.AnalogLook;
-
-		if ( ViewAngles.pitch > 90f || ViewAngles.pitch < -90f )
-		{
-			look = look.WithYaw( look.yaw * -1f );
-		}
-
-		var viewAngles = ViewAngles;
-		viewAngles += look;
-		viewAngles.pitch = viewAngles.pitch.Clamp( -89f, 89f );
-		viewAngles.roll = 0f;
-		ViewAngles = viewAngles.Normal;
-
-		ActiveChild?.BuildInput();
-
-		GetActiveController()?.BuildInput();
-
-		if ( Input.StopProcessing )
-			return;
-
-		GetActiveAnimator()?.BuildInput();
 	}
 
 	/// <summary>

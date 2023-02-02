@@ -1,4 +1,6 @@
-﻿using Sandbox.UI;
+﻿using System;
+using Sandbox;
+using Sandbox.UI;
 
 namespace BattleMages.UI;
 
@@ -6,10 +8,55 @@ namespace BattleMages.UI;
 public partial class Crosshair : Panel
 {
 	public static Crosshair Instance;
+	
+	private Panel Compass { get; set; }
+	
+	private float CompassRotation { get; set; }
+	
+	private float RenderCompassRotation { get; set; }
 
 	public Crosshair()
 	{
 		Instance = this;
 		StyleSheet.Load( "/ui/Crosshair.scss" );
+
+		Compass = Add.Panel("compass");
 	}
+
+	public static void SetCrosshairCompassRotation(float deg)
+	{
+		Instance.CompassRotation = deg;
+	}
+
+	public override void Tick()
+	{
+		CompassRotation = CompassRotation.NormalizeDegrees();
+		RenderCompassRotation = RenderCompassRotation.NormalizeDegrees();
+
+		RenderCompassRotation = lerp_angle(RenderCompassRotation, CompassRotation, Time.Delta * 50f);
+		
+		Log.Info(RenderCompassRotation);
+		
+		var pt = new PanelTransform();
+
+		pt.AddTranslateX( Length.Pixels( -3.5f ) );
+		pt.AddTranslateY( Length.Percent( -50f ) );
+		pt.AddRotation( 0, 0, CompassRotation + 180);
+
+		Compass.Style.Transform = pt;
+	}
+
+	private float lerp_angle(float from, float to, float weight)
+	{
+		return from + short_angle_dist(from, to) * weight;
+	}
+
+
+	private float short_angle_dist(float from, float to)
+	{
+		var max_angle = (MathF.PI * 2f).RadianToDegree();
+		var difference = (to - from) % max_angle;
+		return ((2 * difference) % max_angle) - difference;
+	}
+
 }

@@ -91,7 +91,7 @@ public partial class WalkController : PawnController
 
         var maxDif = 12f * Time.Delta/0.01666666666666666667f;
 
-        var newDif = dif * 0.45f;
+        var newDif = dif * 0.35f;
 
         Player.ViewAngles -= new Angles(0, newDif.yaw, 0);
         
