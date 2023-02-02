@@ -21,8 +21,10 @@ public partial class WalkController
     {
     	if (Input.Down(InputButton.Run) || Input.Pressed(InputButton.Jump))
     		TryUnDuck();
-    	else if (Input.Pressed(InputButton.Duck))
-    		ToggleDuck();
+    	else if (Input.Down(InputButton.Duck))
+	        TryDuck();
+        else if (IsDucking)
+	        TryUnDuck();
 
     	if ( IsDucking )
     	{

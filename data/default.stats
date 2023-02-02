@@ -20,7 +20,7 @@
 			DefaultSpeed = 150
 			WalkSpeed = 110
 			CrouchSpeed = 100
-			CrouchChangeSpeed = 8
+			CrouchChangeSpeed = 15
 			JumpPower = 295
 			JumpOffsetCurve = 
 			[
