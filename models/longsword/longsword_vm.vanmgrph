@@ -226,6 +226,28 @@
 			{
 				key = 
 				{
+					m_id = 654116217
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -208.0, 512.0 ]
+					m_nNodeID = 
+					{
+						m_id = 654116217
+					}
+					m_networkMode = "ServerAuthoritative"
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "stab"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 714558985
 				}
 				value = 
@@ -489,7 +511,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -224.0, 464.0 ]
+					m_vecPosition = [ -240.0, 464.0 ]
 					m_nNodeID = 
 					{
 						m_id = 745181376
@@ -954,6 +976,36 @@
 						{
 							m_nodeID = 
 							{
+								m_id = 743000988
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
+						{
+							m_nodeID = 
+							{
+								m_id = 1420802548
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
+						{
+							m_nodeID = 
+							{
+								m_id = 1252241763
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
+						{
+							m_nodeID = 
+							{
 								m_id = 745181376
 							}
 							m_outputID = 
@@ -964,7 +1016,7 @@
 						{
 							m_nodeID = 
 							{
-								m_id = 4294967295
+								m_id = 654116217
 							}
 							m_outputID = 
 							{
@@ -974,6 +1026,15 @@
 					]
 					m_tags = 
 					[
+						{
+							m_id = 4294967295
+						},
+						{
+							m_id = 4294967295
+						},
+						{
+							m_id = 4294967295
+						},
 						{
 							m_id = 4294967295
 						},
@@ -1378,7 +1439,7 @@
 					m_id = 107779303
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
-				m_bNetwork = true
+				m_bNetwork = false
 				m_bUseMostRecentValue = false
 				m_bAutoReset = false
 				m_bPredicted = false
@@ -1386,7 +1447,10 @@
 				m_enumOptions = 
 				[
 					"Right To Left",
-					"Lef To Right",
+					"Top Right to Left",
+					"Left to Right",
+					"Top Left to Right",
+					"Stab",
 				]
 			},
 			{
