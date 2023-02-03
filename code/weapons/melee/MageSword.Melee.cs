@@ -330,4 +330,16 @@ public partial class MageSword
         if (IsAttacking)
             Input.AnalogLook *= 0.5f;
     }
+
+    protected override void OnDestroy()
+    {
+        if (Game.IsServer)
+            ParryBox?.Delete();;
+    }
+
+    public override void OnDeath()
+    {
+        if (Game.IsServer)
+            ParryBox?.Delete();
+    }
 }
