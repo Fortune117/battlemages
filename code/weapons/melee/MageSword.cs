@@ -32,6 +32,7 @@ public partial class MageSword : Carriable
     public Player Player => Owner as Player;
     public override string ViewModelPath => "models/longsword/longsword_vm.vmdl";
 
+    [Net]
     private ModelEntity ParryBox { get; set; }
     private Vector3 ParryBoxMaxs => new Vector3(15, 10, 10);
     private Vector3 ParryBoxMins => new Vector3(5, 17, 15);

@@ -166,7 +166,7 @@ public partial class MageSword
             var tempRay = new Ray(Player.AimRay.Position, dir);
             var tr = Trace.Ray(tempRay, WeaponLength)
                 .Ignore(Player)
-                .Ignore(this)
+                .Ignore(ParryBox)
                 .WithoutTags(BMTags.PhysicsTags.Trigger)
                 .WorldAndEntities()
                 .UseHitboxes()
@@ -200,7 +200,7 @@ public partial class MageSword
             {
                 var tr = Trace.Ray(swingRay, WeaponLength)
                     .Ignore(Player)
-                    .Ignore(this)
+                    .Ignore(ParryBox)
                     .WithAnyTags("parry", "player")
                     //.WithoutTags(BMTags.PhysicsTags.Trigger)
                     .WorldAndEntities()
@@ -219,7 +219,7 @@ public partial class MageSword
                 var direction = (origin - oldTraceOrigins[i]);
                 var tr = Trace.Ray(origin, origin + direction)
                     .Ignore(Player)
-                    .Ignore(this)
+                    .Ignore(ParryBox)
                     .WithAnyTags("parry", "player")
                     //.WithoutTags(BMTags.PhysicsTags.Trigger)
                     .WorldAndEntities()
