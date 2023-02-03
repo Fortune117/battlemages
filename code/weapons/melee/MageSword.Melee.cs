@@ -30,7 +30,7 @@ public partial class MageSword
     
     private float Damage => 60f;
     private float WeaponLength => 80f;
-    private int TraceDensity => 12;
+    private int TraceDensity => 9;
     
     private float ParryDuration => 0.375f; //seconds
 
@@ -201,7 +201,8 @@ public partial class MageSword
                 var tr = Trace.Ray(swingRay, WeaponLength)
                     .Ignore(Player)
                     .Ignore(this)
-                    .WithoutTags(BMTags.PhysicsTags.Trigger)
+                    .WithAnyTags("parry", "player")
+                    //.WithoutTags(BMTags.PhysicsTags.Trigger)
                     .WorldAndEntities()
                     .UseHitboxes()
                     .Run();
@@ -219,7 +220,8 @@ public partial class MageSword
                 var tr = Trace.Ray(origin, origin + direction)
                     .Ignore(Player)
                     .Ignore(this)
-                    .WithoutTags(BMTags.PhysicsTags.Trigger)
+                    .WithAnyTags("parry", "player")
+                    //.WithoutTags(BMTags.PhysicsTags.Trigger)
                     .WorldAndEntities()
                     .UseHitboxes()
                     .Run();
@@ -246,6 +248,11 @@ public partial class MageSword
         if (swingHitEntities.Contains(entity) || swingParriedPlayers.Contains(entity))
             return;
 
+        if (entity.Tags.Has("parry"))
+        {
+            OnParried();
+        }
+        
         if (Game.IsServer)
         {
             if (entity is Player)
@@ -267,24 +274,39 @@ public partial class MageSword
         Crosshair.Instance?.UnlockCompass();
         
         IsAttacking = false;
+        AttackActive = false;
         ActiveSwing = null;
         
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
     }
 
+    private void OnParried()
+    {
+        IsAttacking = false;
+        AttackActive = false;
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.Parried, true);
+
+        ParryBox?.PlaySound("sword.parry");
+    }
+    
     private void Parry()
     {
         IsParrying = true;
         IsAttacking = false;
+        AttackActive = false;
         ActiveSwing = null;
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.Parry, true);
         TimeSinceParryStarted = 0;
+        
+        ParryBox?.Tags.Add("parry");
     }
 
     private void Feint()
     {
         IsAttacking = false;
+        AttackActive = false;
         ActiveSwing = null;
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.Feint, true);
@@ -300,6 +322,7 @@ public partial class MageSword
     private void FinishParry()
     {
         IsParrying = false;
+        ParryBox?.Tags.Remove("parry");
     }
 
     public override void BuildInput()

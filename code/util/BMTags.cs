@@ -12,6 +12,7 @@ public static class BMTags
         public const string IsRunning = "bIsRunning";
         public const string IsAttacking = "bIsAttacking";
         public const string Parry = "bParry";
+        public const string Parried = "bParried";
         public const string Feint = "bFeint";
         public const string SwingType = "eSwingType";
     }

@@ -32,18 +32,40 @@ public partial class MageSword : Carriable
     public Player Player => Owner as Player;
     public override string ViewModelPath => "models/longsword/longsword_vm.vmdl";
 
+    private ModelEntity ParryBox { get; set; }
+    private Vector3 ParryBoxMaxs => new Vector3(15, 10, 10);
+    private Vector3 ParryBoxMins => new Vector3(5, 17, 15);
+    
     public override void Spawn()
     {
         base.Spawn();
 
         SetModel("models/longsword/longsword_wm.vmdl");
-        
+
+        ParryBox = new();
+        ParryBox.SetupPhysicsFromOBB(PhysicsMotionType.Keyframed, -ParryBoxMins, ParryBoxMaxs);
+        ParryBox.Tags.Add("trigger");
+        ParryBox.Transmit = TransmitType.Always;
+
         BlinkSpell = new Blink(this);
         ActiveSpell = BlinkSpell;
     }
 
     public override void Simulate(IClient client)
     {
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.MoveSpeed, Player.Velocity.Length);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsRunning, Player.IsRunning);
+
+        if (Game.IsServer)
+        {
+            var rot = Rotation.LookAt(Player.AimRay.Forward);
+            ParryBox.Position = Player.AimRay.Position  + rot.Forward*6f;
+            ParryBox.Rotation = rot;
+            
+            if (ParryBox.Tags.Has("parry"))
+                DebugOverlay.Box(ParryBox.Position, ParryBox.Rotation, -ParryBoxMins, ParryBoxMaxs, Color.Green);
+        }
+        
         if (ActiveSpell is null)
             return;
         
@@ -64,9 +86,6 @@ public partial class MageSword : Carriable
             ActiveSpell.Simulate(client);
             return;
         }
-
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.MoveSpeed, Player.Velocity.Length);
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsRunning, Player.IsRunning);
 
         if (Input.Down(InputButton.Reload) && IsCasting)
         {
