@@ -9,6 +9,7 @@ public struct Movement
     public float DefaultSpeed { get; set; }
     public float WalkSpeed { get; set; }
     public float CrouchSpeed { get; set; }
+    public float CrouchChangeSpeed { get; set; }
     public float JumpPower { get; set; }
     public float JumpDelayIdle { get; set; }
     public float JumpDelayMoving { get; set; }

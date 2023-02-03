@@ -36,10 +36,10 @@ public class ThirdPersonCamera : BaseCamera
 			center = Position + Vector3.Up * 64;
 
 			var pos = center;
-			var rot = Camera.Rotation * Rotation.FromAxis( Vector3.Up, -16 );
+			var rot = Entity.ViewAngles.ToRotation() * Rotation.FromAxis( Vector3.Up, -16 );
 
 			float distance = 130.0f * Entity.Scale;
-			targetPos = pos + rot.Right * ((Entity.CollisionBounds.Mins.x + 32) * Entity.Scale);
+			targetPos = pos + rot.Right * ((Entity.CollisionBounds.Mins.x + 64) * Entity.Scale);
 			targetPos += rot.Forward * -distance;
 
 			var tr = Trace.Ray( pos, targetPos )

@@ -63,7 +63,7 @@ public partial class Powers : Carriable
     private void BeginUsingPower()
     {
         IsUsingPower = true;
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsCasting, IsUsingPower);
         TimeSinceStartedUsingPower = 0;
 
         StartBlink();
@@ -74,7 +74,7 @@ public partial class Powers : Carriable
         CancelledInputReleased = false;
         TimeSinceReleasedPower = 0;
         IsUsingPower = false;
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, IsUsingPower);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsCasting, IsUsingPower);
 
         CancelBlink();
     }
@@ -83,7 +83,7 @@ public partial class Powers : Carriable
     {
         IsUsingPower = false;
         TimeSinceReleasedPower = 0;
-        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsUsingPower, false);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsCasting, false);
         
         ReleaseBlink();
     }

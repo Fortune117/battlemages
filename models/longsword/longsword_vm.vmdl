@@ -29,7 +29,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/longsword/arms_longsword.fbx"
+						filename = "models/longsword/longsword_vm.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -40,7 +40,10 @@
 						import_filter = 
 						{
 							exclude_by_default = false
-							exception_list = [  ]
+							exception_list = 
+							[
+								"cube_shape_1",
+							]
 						}
 					},
 				]
@@ -50,274 +53,306 @@
 				children = 
 				[
 					{
-						_class = "Folder"
-						name = "Arms"
-						children = 
-						[
-							{
-								_class = "AnimFile"
-								name = "arms_idle"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "arms"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 0
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "arms_walk"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "arms"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 5
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "arms_sprint_start"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "arms"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 4
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "arms_sprint_loop"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "arms"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 3
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "arms_sprint_end"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "arms"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 2
-								reverse = false
-							},
-						]
+						_class = "AnimFile"
+						name = "idle_01"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 3
+						reverse = false
 					},
 					{
-						_class = "Folder"
-						name = "Sword"
-						children = 
-						[
-							{
-								_class = "AnimFile"
-								name = "sword_idle"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "sword"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 7
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "sword_walk"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "sword"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = 40
-								framerate = -1.0
-								take = 12
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "sword_sprint_start"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "sword"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 11
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "sword_sprint_loop"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "sword"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = 24
-								framerate = -1.0
-								take = 10
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "sword_sprint_end"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = "sword"
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = false
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "models/longsword/arms_longsword.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 9
-								reverse = false
-							},
-						]
+						_class = "AnimFile"
+						name = "walk"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 14
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "sprint_start"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 8
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "sprint_loop"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 7
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "sprint_end"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 6
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "cast_1h_start"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 2
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "cast_1h_hold"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 1
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "cast_1h_blink"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swing_R_to_L"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 11
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swing_top_R_to_L"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 13
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swing_L_to_R"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 10
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swing_top_L_to_R"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 12
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "stab"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 9
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "parry"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = 15
+						framerate = -1.0
+						take = 5
+						reverse = false
 					},
 				]
 				default_root_bone_name = ""
 			},
-			{
-				_class = "WeightListList"
-				children = 
-				[
-					{
-						_class = "WeightList"
-						name = "sword"
-						default_weight = 0.0
-						weights = 
-						[
-							{
-								bone = "sword_root"
-								weight = 1.0
-							},
-						]
-						master_morph_weight = -1.0
-						morph_weights = [  ]
-					},
-					{
-						_class = "WeightList"
-						name = "arms"
-						default_weight = 0.0
-						weights = 
-						[
-							{
-								bone = "upper_arm_L"
-								weight = 1.0
-							},
-							{
-								bone = "upper_arm_R"
-								weight = 1.0
-							},
-						]
-						master_morph_weight = -1.0
-						morph_weights = [  ]
-					},
-				]
-			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = "models/fortunes_sword/longsword.vanmgrph"
+		anim_graph_name = "models/longsword/longsword_vm.vanmgrph"
 		base_model_name = ""
 	}
 }

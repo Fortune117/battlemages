@@ -82,9 +82,7 @@ public partial class Player : BasePlayer
 		Tags.Add(BMTags.PhysicsTags.Player);
 		
 		Components.Create<HeadMovementComponent>();
-		
-		Health = Stats.Health.Max;
-		
+
 		SurroundingBoundsMode = SurroundingBoundsType.Hitboxes;
 
 		base.Spawn();
@@ -94,6 +92,9 @@ public partial class Player : BasePlayer
 	public override void Respawn()
 	{
 		base.Respawn();
+		
+		Health = Stats.Health.Max;
+		LifeState = LifeState.Alive;
 		
 		InSights = false;
 		hasGibbed = false;
@@ -243,7 +244,7 @@ public partial class Player : BasePlayer
 		return true;
 	}
 	
-	[ConCmd.Server("stalker_toggle_view")]
+	[ConCmd.Server("bm_toggle_view")]
 	private static void ChangeView()
 	{
 		if (ConsoleSystem.Caller.Pawn is not Player player)
@@ -274,5 +275,40 @@ public partial class Player : BasePlayer
 		Camera?.FrameSimulate();
 		
 		base.FrameSimulate(cl);
+	}
+	
+	/// <summary>
+	/// Called from the gamemode, clientside only.
+	/// </summary>
+	public override void BuildInput()
+	{
+		OriginalViewAngles = ViewAngles;
+		InputDirection = Input.AnalogMove;
+
+		if ( Input.StopProcessing )
+			return;
+		
+		MeleeInput();
+		ActiveChild?.BuildInput();
+		
+		var look = Input.AnalogLook;
+
+		if ( ViewAngles.pitch > 90f || ViewAngles.pitch < -90f )
+		{
+			look = look.WithYaw( look.yaw * -1f );
+		}
+
+		var viewAngles = ViewAngles;
+		viewAngles += look;
+		viewAngles.pitch = viewAngles.pitch.Clamp( -89f, 89f );
+		viewAngles.roll = 0f;
+		ViewAngles = viewAngles.Normal;
+
+		GetActiveController()?.BuildInput();
+
+		if ( Input.StopProcessing )
+			return;
+
+		GetActiveAnimator()?.BuildInput();
 	}
 }
