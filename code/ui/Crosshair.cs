@@ -11,6 +11,8 @@ public partial class Crosshair : Panel
 	
 	private Panel Compass { get; set; }
 	private float CompassRotation { get; set; }
+	
+	private bool CompassLocked { get; set; }
 
 	public Crosshair()
 	{
@@ -25,8 +27,22 @@ public partial class Crosshair : Panel
 		Instance.CompassRotation = deg;
 	}
 
+
+	public void LockCompass()
+	{
+		Instance.CompassLocked = true;
+	}
+	
+	public void UnlockCompass()
+	{
+		Instance.CompassLocked = false;
+	}
+	
 	public override void Tick()
 	{
+		if (CompassLocked)
+			return;
+		
 		CompassRotation = CompassRotation.NormalizeDegrees();
 		
 		var pt = new PanelTransform();

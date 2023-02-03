@@ -287,7 +287,10 @@ public partial class Player : BasePlayer
 
 		if ( Input.StopProcessing )
 			return;
-
+		
+		MeleeInput();
+		ActiveChild?.BuildInput();
+		
 		var look = Input.AnalogLook;
 
 		if ( ViewAngles.pitch > 90f || ViewAngles.pitch < -90f )
@@ -300,9 +303,6 @@ public partial class Player : BasePlayer
 		viewAngles.pitch = viewAngles.pitch.Clamp( -89f, 89f );
 		viewAngles.roll = 0f;
 		ViewAngles = viewAngles.Normal;
-
-		MeleeInput();
-		ActiveChild?.BuildInput();
 
 		GetActiveController()?.BuildInput();
 

@@ -23,12 +23,12 @@ partial class Player
         lastDamage = info;
 
         base.TakeDamage( info );
-
-        if ( info.HasTag(BMTags.Damage.Explosion) )
+        
+        if (info.Hitbox.HasTag(BMTags.HitBox.Head))
         {
-            Deafen( To.Single( this ), info.Damage.LerpInverse( 0, 600 ) );
+            info.Damage *= 2f;
         }
-
+        
         Health -= info.Damage;
         
         if (Health < 0)
@@ -80,7 +80,8 @@ partial class Player
             PlaySound( "kersplat" );
         }
 
-        Camera = new FirstPersonDeathCamera();
+        CreateCorpse();
+        Camera = new FloatingCamera();
 
         Controller = null;
 
@@ -93,6 +94,16 @@ partial class Player
         }
         
         base.OnKilled();
+    }
+
+    private void CreateCorpse()
+    {
+        var ent = new DeathRagdoll();
+        ent.CopyFrom(this);
+        ent.TakeDamage(lastDamage);
+        ent.Owner = this;
+
+        Corpse = ent;
     }
 
 }

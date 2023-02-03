@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BattleMages.UI;
 using Sandbox;
 
 namespace BattleMages.Melee;
@@ -22,8 +23,8 @@ public partial class MageSword
     
     
     private float Damage => 60f;
-    private float WeaponLength => 70f;
-    private int TraceDensity => 8;
+    private float WeaponLength => 80f;
+    private int TraceDensity => 12;
 
     private SwingData LeftToRight =
         ResourceLibrary.Get<SwingData>("data/swingdata/longsword/longsword_left_to_right.swing");
@@ -40,7 +41,7 @@ public partial class MageSword
     private SwingData Stab =
         ResourceLibrary.Get<SwingData>("data/swingdata/longsword/longsword_stab.swing");
 
-    private readonly HashSet<Entity> swingHitEntities = new();
+    private string ImpactSound = "data/sounds/weapons/sword.hit_flesh.sound";
 
     /// <summary>
     /// This uses the angle determined by the players melee input angle and then snaps the swing to
@@ -97,8 +98,12 @@ public partial class MageSword
         }
     }
 
+    private readonly HashSet<Entity> swingHitEntities = new();
+    private readonly HashSet<Entity> swingParriedPlayers = new();
     private void StartSwing(SwingData swingData)
     {
+        Crosshair.Instance?.LockCompass();
+        
         IsAttacking = true;
         TimeSinceSwingStarted = 0;
         ActiveSwing = swingData;
@@ -110,6 +115,7 @@ public partial class MageSword
         Log.Info(Player.MeleeInputAngle);
         
         swingHitEntities.Clear();
+        swingParriedPlayers.Clear();
         oldTraceOrigins = new Vector3[TraceDensity];
         shouldDoDamageTrace = false;
     }
@@ -127,9 +133,24 @@ public partial class MageSword
             if (!string.IsNullOrWhiteSpace(ActiveSwing.Sound))
                 Sound.FromEntity(ActiveSwing.Sound, Player);
         }
-        
+
         if (!AttackActive)
+        {
+            var dir = (Player.ViewAngles + ActiveSwing.StartAngles).Forward;
+            var tempRay = new Ray(Player.AimRay.Position, dir);
+            var tr = Trace.Ray(tempRay, WeaponLength)
+                .Ignore(Player)
+                .Ignore(this)
+                .WithoutTags(BMTags.PhysicsTags.Trigger)
+                .WorldAndEntities()
+                .UseHitboxes()
+                .Run();
+            
+            DebugOverlay.Line(tr.StartPosition, tr.EndPosition, Color.Red);
+
             return;
+        }
+
 
         var activeFrac = TimeSinceSwingStarted - ActiveSwing.WindUpTime;
         activeFrac /= ActiveSwing.ActiveTime;
@@ -148,8 +169,25 @@ public partial class MageSword
         {
             var distance = (WeaponLength / TraceDensity) * i;
             var origin = swingStartPos + swingForward * distance;
+
+            if (ActiveSwing.IsStab)
+            {
+                var tr = Trace.Ray(swingRay, WeaponLength)
+                    .Ignore(Player)
+                    .Ignore(this)
+                    .WithoutTags(BMTags.PhysicsTags.Trigger)
+                    .WorldAndEntities()
+                    .UseHitboxes()
+                    .Run();
             
-            if (shouldDoDamageTrace)
+                DebugOverlay.TraceResult(tr, 3f);
+
+                if (tr.Entity is not null)
+                {
+                    TryHitEntity(tr, tr.Entity);
+                }
+            }
+            else if (shouldDoDamageTrace)
             {
                 var direction = (origin - oldTraceOrigins[i]);
                 var tr = Trace.Ray(origin, origin + direction)
@@ -157,6 +195,7 @@ public partial class MageSword
                     .Ignore(this)
                     .WithoutTags(BMTags.PhysicsTags.Trigger)
                     .WorldAndEntities()
+                    .UseHitboxes()
                     .Run();
             
                 DebugOverlay.TraceResult(tr, 3f);
@@ -178,20 +217,38 @@ public partial class MageSword
 
     private void TryHitEntity(TraceResult swingTrace, Entity entity)
     {
-        if (swingHitEntities.Contains(entity))
+        if (swingHitEntities.Contains(entity) || swingParriedPlayers.Contains(entity))
             return;
 
         if (Game.IsServer)
-            entity.TakeDamage(DamageInfo.Generic(Damage));
+        {
+            if (entity is Player)
+                Sound.FromWorld(ImpactSound, swingTrace.HitPosition);
+
+            var damage = new DamageInfo()
+                .UsingTraceResult(swingTrace)
+                .WithTag(BMTags.Damage.Slash)
+                .WithDamage(Damage);
+
+            entity.TakeDamage(damage);
+        }
 
         swingHitEntities.Add(entity);
     }
 
     private void FinishSwing()
     {
+        Crosshair.Instance?.UnlockCompass();
+        
         IsAttacking = false;
         ActiveSwing = null;
         
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
+    }
+
+    public override void BuildInput()
+    {
+        if (IsAttacking)
+            Input.AnalogLook *= 0.5f;
     }
 }

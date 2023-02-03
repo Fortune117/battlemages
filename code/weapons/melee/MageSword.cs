@@ -44,7 +44,11 @@ public partial class MageSword : Carriable
 
     public override void Simulate(IClient client)
     {
-        SimulateAttacking(client);
+        if (ActiveSpell is null)
+            return;
+        
+        if (!IsCasting && !ActiveSpell.ShouldSimulate)
+            SimulateAttacking(client);
         
         if (!IsAttacking)
             SimulateCasting(client);

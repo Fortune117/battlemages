@@ -70,7 +70,7 @@
 			MaxNonJumpVelocity = 140
 			BodyGirth = 32
 			BodyHeight = 72
-			EyeHeight = 64
+			EyeHeight = 68.09889
 			Gravity = 800
 			AirControl = 30
 		}
