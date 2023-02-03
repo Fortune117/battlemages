@@ -48,10 +48,10 @@ public partial class MageSword : Carriable
             return;
         
         if (!IsCasting && !ActiveSpell.ShouldSimulate)
-            SimulateAttacking(client);
+            SimulateMelee(client);
         
-        if (!IsAttacking)
-            SimulateCasting(client);
+        /*if (!IsAttacking)
+            SimulateCasting(client);*/
     }
     
     private void SimulateCasting(IClient client)

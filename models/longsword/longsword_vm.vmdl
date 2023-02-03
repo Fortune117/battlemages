@@ -91,7 +91,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 13
+						take = 14
 						reverse = false
 					},
 					{
@@ -112,7 +112,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 7
+						take = 8
 						reverse = false
 					},
 					{
@@ -133,7 +133,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 6
+						take = 7
 						reverse = false
 					},
 					{
@@ -154,7 +154,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 5
+						take = 6
 						reverse = false
 					},
 					{
@@ -238,7 +238,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 10
+						take = 11
 						reverse = false
 					},
 					{
@@ -259,7 +259,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 12
+						take = 13
 						reverse = false
 					},
 					{
@@ -280,7 +280,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 9
+						take = 10
 						reverse = false
 					},
 					{
@@ -301,7 +301,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 11
+						take = 12
 						reverse = false
 					},
 					{
@@ -322,7 +322,28 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
-						take = 8
+						take = 9
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "parry"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/longsword/longsword_vm.fbx"
+						start_frame = -1
+						end_frame = 15
+						framerate = -1.0
+						take = 5
 						reverse = false
 					},
 				]

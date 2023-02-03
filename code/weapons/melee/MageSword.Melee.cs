@@ -13,6 +13,12 @@ public partial class MageSword
     private bool IsAttacking { get; set; }
     
     [Net, Predicted]
+    private bool IsParrying { get; set; }
+    
+    [Net, Predicted]
+    private TimeSince TimeSinceParryStarted { get; set; }
+    
+    [Net, Predicted]
     private bool AttackActive { get; set; }
     
     [Net, Predicted]
@@ -25,6 +31,8 @@ public partial class MageSword
     private float Damage => 60f;
     private float WeaponLength => 80f;
     private int TraceDensity => 12;
+    
+    private float ParryDuration => 0.375f; //seconds
 
     private SwingData LeftToRight =
         ResourceLibrary.Get<SwingData>("data/swingdata/longsword/longsword_left_to_right.swing");
@@ -77,8 +85,26 @@ public partial class MageSword
         return ((2 * difference) % max_angle) - difference;
     }
     
-    private void SimulateAttacking(IClient client)
+    private void SimulateMelee(IClient client)
     {
+        if (IsParrying)
+        {
+            SimulateParry();
+            return;
+        }
+        
+        if (Input.Pressed(InputButton.SecondaryAttack) && !AttackActive)
+        {
+            Parry();
+            return;
+        }
+
+        if (IsAttacking && !AttackActive && Input.Pressed(InputButton.Menu))
+        {
+            Feint();
+            return;
+        }
+        
         if (IsAttacking)
         {
             SimulateSwing(client);
@@ -244,6 +270,36 @@ public partial class MageSword
         ActiveSwing = null;
         
         ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
+    }
+
+    private void Parry()
+    {
+        IsParrying = true;
+        IsAttacking = false;
+        ActiveSwing = null;
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.Parry, true);
+        TimeSinceParryStarted = 0;
+    }
+
+    private void Feint()
+    {
+        IsAttacking = false;
+        ActiveSwing = null;
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.IsAttacking, false);
+        ViewModelEntity?.SetAnimParameter(BMTags.ViewModelAnims.Feint, true);
+    }
+
+    private void SimulateParry()
+    {
+        
+        if (TimeSinceParryStarted > ParryDuration)
+            FinishParry();
+    }
+
+    private void FinishParry()
+    {
+        IsParrying = false;
     }
 
     public override void BuildInput()
