@@ -27,6 +27,7 @@
     "Summary": "Battle it out as WIP Characters!!",
     "Description": "babble mages",
     "Public": true,
-    "ReplaceTags": "firstperson magic"
+    "ReplaceTags": "firstperson magic",
+    "CsProjName": ""
   }
 }

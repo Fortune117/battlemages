@@ -158,6 +158,8 @@ public partial class MageSword
         {
             if (!string.IsNullOrWhiteSpace(ActiveSwing.Sound))
                 Sound.FromEntity(ActiveSwing.Sound, Player);
+            
+            (Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
         }
 
         if (!AttackActive)

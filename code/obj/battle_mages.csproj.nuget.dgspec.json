@@ -4,12 +4,12 @@
     "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\battlemages\\code\\battle_mages.csproj": {}
   },
   "projects": {
-    "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\base.csproj": {
+    "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\base.csproj",
-        "projectName": "base",
-        "projectPath": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\base.csproj",
+        "projectUniqueName": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
+        "projectName": "Base",
+        "projectPath": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj",
         "packagesPath": "C:\\Users\\fortu\\.nuget\\packages\\",
         "outputPath": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\obj\\",
         "projectStyle": "PackageReference",
@@ -95,8 +95,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\base.csproj": {
-                "projectPath": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\base.csproj"
+              "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj": {
+                "projectPath": "C:\\My Stuff\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base.csproj"
               }
             }
           }
